@@ -68,7 +68,7 @@
     var n = 0;
     karten.forEach(function (k) {
       var sichtbar = passt(k);
-      k.hidden = !sichtbar;
+      k.style.display = sichtbar ? '' : 'none';
       if (sichtbar) n++;
     });
 
