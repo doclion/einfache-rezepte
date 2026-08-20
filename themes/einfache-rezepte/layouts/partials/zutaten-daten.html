@@ -1,0 +1,23 @@
+{{- /*
+  Wandelt .Params.ingredients in eine flache, normalisierte Liste um.
+  Unterstuetzte Schreibweisen im Frontmatter:
+
+  ingredients:
+    - "1 Prise Salz"
+    - { amount: 250, unit: "g", name: "Mehl" }
+    - group: "Fuer die Sauce"
+      items:
+        - { amount: 200, unit: "ml", name: "Sahne" }
+*/ -}}
+{{- $out := slice -}}
+{{- range $e := (default slice .) -}}
+  {{- if and (reflect.IsMap $e) (isset $e "items") -}}
+    {{- $g := printf "%v" (default "" (index $e "group")) -}}
+    {{- range $j, $it := (index $e "items") -}}
+      {{- $out = $out | append (partial "zutat-normalisieren.html" (dict "eintrag" $it "gruppe" (cond (eq $j 0) $g ""))) -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $out = $out | append (partial "zutat-normalisieren.html" (dict "eintrag" $e "gruppe" "")) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

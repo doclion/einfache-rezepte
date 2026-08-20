@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="seitenkopf">
+    <p class="eyebrow">Übersicht</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="fliesstext">{{ . }}</div>{{ end }}
+  </header>
+
+  <div class="schnellfilter">
+    {{ range .Data.Terms.ByCount }}
+    <a class="chip" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="zahl">{{ .Count }}</span></a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

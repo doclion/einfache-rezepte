@@ -1,0 +1,33 @@
+{{- /*
+  Responsives Bild. Wenn das Bild als Ressource vorliegt (assets/ oder Page-Bundle),
+  wird es zu WebP in mehreren Breiten konvertiert. Sonst Fallback auf ein einfaches img.
+  Aufruf:
+  {{ partial "bild.html" (dict "page" . "pfad" .Params.image "alt" .Title "sizes" "(max-width: 700px) 100vw, 640px" "laden" "lazy") }}
+*/ -}}
+{{- $pfad := printf "%v" (default "" .pfad) -}}
+{{- $alt := default "" .alt -}}
+{{- $sizes := default "100vw" .sizes -}}
+{{- $laden := default "lazy" .laden -}}
+{{- $prio := default "auto" .prio -}}
+{{- $res := partial "bild-ressource.html" (dict "page" .page "pfad" $pfad) -}}
+{{- if $res -}}
+  {{- $breiten := slice 400 640 960 1400 -}}
+  {{- $srcset := slice -}}
+  {{- range $breiten -}}
+    {{- if ge $res.Width . -}}
+      {{- $v := $res.Resize (printf "%dx webp q78" .) -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink $v.Width) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $klein := $res.Resize "640x webp q78" -}}
+  {{- if lt $res.Width 640 -}}{{- $klein = $res.Resize (printf "%dx webp q78" $res.Width) -}}{{- end -}}
+  {{- if eq (len $srcset) 0 -}}{{- $srcset = $srcset | append (printf "%s %dw" $klein.RelPermalink $klein.Width) -}}{{- end -}}
+  <img src="{{ $klein.RelPermalink }}"
+       srcset="{{ delimit $srcset ", " }}"
+       sizes="{{ $sizes }}"
+       width="{{ $res.Width }}" height="{{ $res.Height }}"
+       alt="{{ $alt }}" loading="{{ $laden }}" decoding="async" fetchpriority="{{ $prio }}">
+{{- else if $pfad -}}
+  <img src="{{ if or (hasPrefix $pfad "http") (hasPrefix $pfad "//") }}{{ $pfad }}{{ else }}{{ $pfad | relURL }}{{ end }}"
+       alt="{{ $alt }}" loading="{{ $laden }}" decoding="async" fetchpriority="{{ $prio }}">
+{{- end -}}

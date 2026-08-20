@@ -1,0 +1,35 @@
+<footer class="fuss">
+  <div class="wrap">
+    <div class="fuss-raster">
+      <div>
+        <p class="fuss-marke">Einfache Rezepte</p>
+        <p>{{ site.Params.footerText | default "Alltagstaugliche Rezepte mit klaren Mengenangaben und Schritten, die auch beim ersten Versuch funktionieren." }}</p>
+      </div>
+
+      <div>
+        <h2>Rezepte</h2>
+        <ul>
+          <li><a href="{{ "posts/" | relURL }}">Alle Rezepte</a></li>
+          {{ range first 5 site.Taxonomies.categories.ByCount }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <div>
+        <h2>Rechtliches</h2>
+        <ul>
+          <li><a href="{{ "impressum/" | relURL }}">Impressum</a></li>
+          <li><a href="{{ "datenschutz/" | relURL }}">Datenschutz</a></li>
+          <li><a href="{{ "ueber-uns/" | relURL }}">Über uns</a></li>
+          {{ with .OutputFormats.Get "RSS" }}<li><a href="{{ .RelPermalink }}">RSS-Feed</a></li>{{ end }}
+        </ul>
+      </div>
+    </div>
+
+    <div class="fuss-unten">
+      <p>&copy; {{ now.Format "2006" }} {{ site.Title }}</p>
+      <p>{{ site.Params.affiliateText }}</p>
+    </div>
+  </div>
+</footer>

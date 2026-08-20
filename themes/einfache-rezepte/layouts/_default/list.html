@@ -1,60 +1,18 @@
 {{ define "main" }}
-<section class="list-page">
-    <div class="list-header">
-        <h1>📖 {{ .Title }}</h1>
-        {{ with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
-        <p class="hero-meta">{{ len .Pages }} Rezepte gefunden</p>
-    </div>
+<div class="wrap">
+  <header class="seitenkopf">
+    <p class="eyebrow">{{ cond (eq .Kind "term") "Schlagwort" "Übersicht" }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="fliesstext">{{ . }}</div>{{ end }}
+    <p class="treffer"><b>{{ len .Pages }}</b> Rezepte</p>
+  </header>
 
-    <!-- Category filter tabs -->
-    {{ if eq .Section "posts" }}
-    {{ if .Site.Taxonomies.categories }}
-    <div class="category-pills" style="margin-bottom: 2rem;">
-        <a href="{{ "posts/" | absURL }}" class="category-pill" style="background: var(--accent-gradient); color: white; border-color: transparent;">
-            🍽️ Alle
-            <span class="count" style="background: rgba(255,255,255,0.2); color: white;">{{ len .RegularPages }}</span>
-        </a>
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="category-pill">
-            {{ $name | title }}
-            <span class="count">{{ $taxonomy.Count }}</span>
-        </a>
-        {{ end }}
-    </div>
+  {{ $seiten := .Paginate (.Pages.ByDate.Reverse) }}
+  <div class="karten">
+    {{ range $i, $p := $seiten.Pages }}
+      {{ partial "karte.html" (dict "seite" $p "laden" (cond (lt $i 6) "eager" "lazy")) }}
     {{ end }}
-    {{ end }}
-
-    <div class="post-grid">
-        {{ range .Paginator.Pages }}
-        <article class="post-card">
-            {{ if .Params.image }}
-            <div class="card-image">
-                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
-            </div>
-            {{ end }}
-            <div class="card-content">
-                <div class="card-meta">
-                    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
-                    {{ with .Params.categories }}
-                    <span class="card-category">{{ index . 0 }}</span>
-                    {{ end }}
-                </div>
-                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                <p>{{ .Summary | plainify | truncate 120 }}</p>
-                <div class="card-tags">
-                    {{ range first 3 .Params.tags }}
-                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
-                    {{ end }}
-                </div>
-                <div class="card-meta-recipe">
-                    <span>⏱️ {{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</span>
-                    <span>📊 {{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</span>
-                </div>
-                <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
-            </div>
-        </article>
-        {{ end }}
-    </div>
-    {{ template "_internal/pagination.html" . }}
-</section>
+  </div>
+  {{ template "_internal/pagination.html" . }}
+</div>
 {{ end }}

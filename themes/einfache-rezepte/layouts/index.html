@@ -1,102 +1,67 @@
 {{ define "main" }}
-<section class="hero">
-    <div class="hero-content">
-        <h1>Einfache Rezepte <span>für jeden Tag</span> 🍳</h1>
-        <p class="hero-sub">Leckere Gerichte, die garantiert gelingen – von schnell bis aufwendig, von klassisch bis kreativ. Alle Rezepte Schritt-für-Schritt erklärt.</p>
-        <p class="hero-meta">📖 <strong>{{ len (where $.Site.RegularPages "Section" "posts") }}</strong> Rezepte · Aktualisiert: {{ now.Format "02.01.2006" }}</p>
-        <div class="hero-search">
-            <input type="text" id="search-input" placeholder="Was möchtest du kochen? Kartoffeln, Pasta, Salat…" onkeydown="if(event.key==='Enter') window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(this.value)">
-            <button onclick="window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(document.getElementById('search-input').value)">🔍 Suchen</button>
-        </div>
+{{ $rezepte := where site.RegularPages "Section" "posts" }}
+{{ $sortiert := $rezepte.ByDate.Reverse }}
+
+<section class="suchkopf">
+  <div class="wrap">
+    <p class="eyebrow">Küchenkarte · {{ now.Format "02.01.2006" }}</p>
+    <h1>Was koche ich heute?</h1>
+    <p class="lede">{{ len $rezepte }} erprobte Rezepte mit klaren Mengen, ehrlichen Zeitangaben und einem Schritt-für-Schritt-Kochmodus. Tipp ein, was du im Kühlschrank hast.</p>
+
+    <div class="suchfeld" id="suchfeld">
+      <svg class="lupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label class="visually-hidden" for="suche">Rezepte durchsuchen</label>
+      <input type="search" id="suche" name="q" autocomplete="off"
+             placeholder="Kartoffeln, Ofengericht, vegetarisch …"
+             aria-describedby="treffer">
+      <button type="button" class="loeschen" id="suche-loeschen" aria-label="Suche löschen">×</button>
     </div>
+
+    <div class="schnellfilter">
+      <button type="button" class="chip" data-zeit="20">Unter 20 Min.</button>
+      <button type="button" class="chip" data-zeit="30">Unter 30 Min.</button>
+      {{ range first 4 site.Taxonomies.tags.ByCount }}
+      <button type="button" class="chip" data-such="{{ .Page.Title | lower }}">{{ .Page.Title }}</button>
+      {{ end }}
+    </div>
+  </div>
 </section>
 
-<section class="categories-section">
-    <div class="section-title">
-        <p class="subtitle">Entdecke</p>
-        <h2>Rezepte nach Kategorie</h2>
-    </div>
-    <div class="category-pills">
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="category-pill">
-            {{ $name | title }}
-            <span class="count">{{ $taxonomy.Count }}</span>
-        </a>
-        {{ end }}
-    </div>
-</section>
+<div class="filterleiste">
+  <div class="wrap filterleiste-inner">
+    <p class="treffer" id="treffer" role="status" aria-live="polite"><b>{{ len $rezepte }}</b> Rezepte</p>
 
-<section class="featured-posts">
-    <div class="section-title">
-        <p class="subtitle">Frisch aus der Küche</p>
-        <h2>Die neuesten Rezepte</h2>
-    </div>
-    <div class="post-grid">
-        {{ $pages := where .Site.RegularPages "Section" "posts" }}
-        {{ $sorted := $pages.ByDate.Reverse }}
-        {{ range $index, $page := $sorted }}
-        <article class="post-card">
-            {{ if .Params.image }}
-            <div class="card-image">
-                {{ if eq $index 0 }}<span class="card-badge">Neuestes Rezept</span>{{ end }}
-                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="{{ if lt $index 4 }}eager{{ else }}lazy{{ end }}">
-                <button class="card-save" onclick="alert('🔖 Rezept gespeichert!')" title="Merken">🔖</button>
-            </div>
-            {{ else }}
-            <div class="card-image">
-                {{ if eq $index 0 }}<span class="card-badge">Neuestes Rezept</span>{{ end }}
-                <div class="card-image-placeholder">
-                    {{ $emoji := "🍳" }}
-                    {{ range first 1 .Params.tags }}
-                        {{ if eq . "nudeln" }}{{ $emoji = "🍝" }}{{ end }}
-                        {{ if eq . "salat" }}{{ $emoji = "🥗" }}{{ end }}
-                        {{ if eq . "suppen" }}{{ $emoji = "🥣" }}{{ end }}
-                        {{ if eq . "backen" }}{{ $emoji = "🥐" }}{{ end }}
-                        {{ if eq . "dessert" }}{{ $emoji = "🍰" }}{{ end }}
-                        {{ if eq . "fruehstueck" }}{{ $emoji = "🥞" }}{{ end }}
-                        {{ if eq . "haehnchen" }}{{ $emoji = "🍗" }}{{ end }}
-                        {{ if eq . "vegan" }}{{ $emoji = "🥬" }}{{ end }}
-                        {{ if eq . "pizza" }}{{ $emoji = "🍕" }}{{ end }}
-                        {{ if eq . "kuchen" }}{{ $emoji = "🎂" }}{{ end }}
-                        {{ if eq . "grillen" }}{{ $emoji = "🔥" }}{{ end }}
-                        {{ if eq . "fisch" }}{{ $emoji = "🐟" }}{{ end }}
-                    {{ end }}
-                    <span class="emoji">{{ $emoji }}</span>
-                </div>
-                <button class="card-save" onclick="alert('🔖 Rezept gespeichert!')" title="Merken">🔖</button>
-            </div>
-            {{ end }}
-            <div class="card-content">
-                <div class="card-meta">
-                    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
-                    {{ with .Params.categories }}
-                    <span class="card-category">{{ index . 0 }}</span>
-                    {{ end }}
-                </div>
-                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                <p>{{ .Summary | plainify | truncate 130 }}</p>
-                <div class="card-tags">
-                    {{ range first 3 .Params.tags }}
-                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
-                    {{ end }}
-                </div>
-                <div class="card-meta-recipe">
-                    <span>⏱️ {{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</span>
-                    <span>📊 {{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</span>
-                </div>
-                <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
-            </div>
-        </article>
-        {{ end }}
-    </div>
-</section>
+    <label class="visually-hidden" for="f-kategorie">Kategorie</label>
+    <select class="filter-select" id="f-kategorie">
+      <option value="">Alle Kategorien</option>
+      {{ range $name, $t := site.Taxonomies.categories }}
+      <option value="{{ $name | urlize }}">{{ $t.Page.Title }} ({{ $t.Count }})</option>
+      {{ end }}
+    </select>
 
-<section class="newsletter-section">
-    <h2>📧 Kostenlose Rezepte per E-Mail</h2>
-    <p>Erhalte jeden Donnerstag die besten neuen Rezepte direkt in dein Postfach. Jederzeit kündbar.</p>
-    <form class="newsletter-form" action="#" method="post" onsubmit="alert('✅ Danke für die Anmeldung!'); return false;">
-        <input type="email" placeholder="Deine E-Mail-Adresse" required>
-        <button type="submit">Kostenlos anmelden</button>
-    </form>
-</section>
+    <label class="visually-hidden" for="f-schwierigkeit">Schwierigkeit</label>
+    <select class="filter-select" id="f-schwierigkeit">
+      <option value="">Jede Schwierigkeit</option>
+      <option value="einfach">Einfach</option>
+      <option value="mittel">Mittel</option>
+      <option value="anspruchsvoll">Anspruchsvoll</option>
+    </select>
+
+    <button type="button" class="chip" id="f-zuruecksetzen" hidden>Filter zurücksetzen</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="karten" id="rezeptliste">
+    {{ range $i, $p := $sortiert }}
+      {{ partial "karte.html" (dict "seite" $p "laden" (cond (lt $i 6) "eager" "lazy")) }}
+    {{ end }}
+
+    <div class="leer-zustand" id="leer" hidden>
+      <h3>Dazu haben wir noch nichts</h3>
+      <p>Andere Schreibweise probieren oder die Filter lockern.</p>
+      <button type="button" class="chip aktiv" id="leer-zuruecksetzen">Alle Rezepte zeigen</button>
+    </div>
+  </div>
+</div>
 {{ end }}

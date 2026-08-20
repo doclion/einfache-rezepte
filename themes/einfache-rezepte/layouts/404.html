@@ -1,7 +1,8 @@
 {{ define "main" }}
-<section class="error-page">
-    <h1>404</h1>
-    <p>Seite nicht gefunden – aber Hunger hast du bestimmt! 🍳</p>
-    <a href="{{ "" | absURL }}" class="read-more" style="font-size: 1.1rem;">Zur Startseite →</a>
-</section>
+<div class="wrap fehlerseite">
+  <p class="code">404</p>
+  <h1>Diese Seite gibt es nicht</h1>
+  <p class="lede" style="margin-inline:auto">Der Link ist vermutlich veraltet. Such das Rezept direkt auf der Startseite.</p>
+  <p style="margin-top:1.5rem"><a class="chip aktiv" href="{{ "" | relURL }}">Zur Rezeptsuche</a></p>
+</div>
 {{ end }}

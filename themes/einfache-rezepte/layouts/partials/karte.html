@@ -1,0 +1,28 @@
+{{- $p := .seite -}}
+{{- $laden := default "lazy" .laden -}}
+{{- $gesamt := add (partial "minuten.html" $p.Params.prepTime) (partial "minuten.html" $p.Params.cookTime) -}}
+{{- $kat := "" -}}{{- with $p.Params.categories -}}{{- $kat = index . 0 -}}{{- end -}}
+{{- $such := lower (printf "%s %s %s %s" $p.Title (partial "beschreibung.html" $p) (delimit ($p.Params.tags | default slice) " ") $kat) -}}
+<article class="karte"
+         data-titel="{{ $such }}"
+         data-kategorie="{{ $kat | urlize }}"
+         data-schwierigkeit="{{ $p.Params.difficulty | default "" | urlize }}"
+         data-minuten="{{ $gesamt }}">
+  <div class="karte-bild">
+    {{ with $p.Params.image }}
+      {{ partial "bild.html" (dict "page" $p "pfad" . "alt" $p.Title "laden" $laden "sizes" "(max-width: 700px) 100vw, 320px" "prio" (cond (eq $laden "eager") "high" "auto")) }}
+    {{ else }}
+      <div class="karte-bild-leer" aria-hidden="true">{{ substr $p.Title 0 1 }}</div>
+    {{ end }}
+    {{ if gt $gesamt 0 }}<span class="karte-zeit">{{ partial "dauer.html" $gesamt }}</span>{{ end }}
+  </div>
+  <div class="karte-inhalt">
+    {{ with $kat }}<span class="karte-kat">{{ . }}</span>{{ end }}
+    <h3><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+    <p>{{ partial "beschreibung.html" $p | truncate 110 }}</p>
+    <div class="karte-fuss">
+      <span>{{ $p.Params.difficulty | default "Mittel" }}</span>
+      {{ with $p.Params.servings }}<span>{{ . }} Portionen</span>{{ end }}
+    </div>
+  </div>
+</article>

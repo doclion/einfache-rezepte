@@ -1,0 +1,46 @@
+{{- /*
+  Normalisiert einen Zutateneintrag zu:
+  dict "menge" <float|0> "einheit" <string> "name" <string> "gruppe" <string> "text" <string>
+  Akzeptiert entweder ein Map-Objekt {amount, unit, name} oder einen Freitext-String
+  wie "250 g Mehl". Ist keine Menge erkennbar, bleibt menge = 0 (keine Skalierung).
+*/ -}}
+{{- $e := .eintrag -}}
+{{- $gruppe := default "" .gruppe -}}
+{{- $menge := 0.0 -}}
+{{- $einheit := "" -}}
+{{- $name := "" -}}
+
+{{- if reflect.IsMap $e -}}
+  {{- $name = printf "%v" (default "" (index $e "name")) -}}
+  {{- $einheit = printf "%v" (default "" (index $e "unit")) -}}
+  {{- with index $e "amount" -}}
+    {{- $menge = float . -}}
+  {{- end -}}
+{{- else -}}
+  {{- $roh := trim (printf "%v" $e) " " -}}
+  {{- $mitEinheit := findRESubmatch `^([0-9]+(?:[.,][0-9]+)?)\s*(g|kg|ml|l|EL|TL|Prisen?|St(?:ü|ue)ck|Stk\.?|Zehen?|Bund|Dosen?|Pck\.?|Packungen?|Msp\.?|cl|Scheiben?|Becher|Tassen?|Blatt|Kugeln?)\s+(.+)$` $roh 1 -}}
+  {{- $ohneEinheit := findRESubmatch `^([0-9]+(?:[.,][0-9]+)?)\s+(.+)$` $roh 1 -}}
+  {{- if $mitEinheit -}}
+    {{- $t := index $mitEinheit 0 -}}
+    {{- $menge = float (replace (index $t 1) "," ".") -}}
+    {{- $einheit = index $t 2 -}}
+    {{- $name = index $t 3 -}}
+  {{- else if $ohneEinheit -}}
+    {{- $t := index $ohneEinheit 0 -}}
+    {{- $menge = float (replace (index $t 1) "," ".") -}}
+    {{- $name = index $t 2 -}}
+  {{- else -}}
+    {{- $name = $roh -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $mstr := "" -}}
+{{- if gt $menge 0.0 -}}
+  {{- if eq $menge (float (int $menge)) -}}
+    {{- $mstr = printf "%d" (int $menge) -}}
+  {{- else -}}
+    {{- $mstr = replaceRE `,?0+$` "" (replace (printf "%.2f" $menge) "." ",") -}}
+  {{- end -}}
+{{- end -}}
+{{- $text := replaceRE `\s+` " " (trim (printf "%s %s %s" $mstr $einheit $name) " ") -}}
+{{- return (dict "menge" $menge "mengeText" $mstr "einheit" $einheit "name" $name "gruppe" $gruppe "text" $text) -}}

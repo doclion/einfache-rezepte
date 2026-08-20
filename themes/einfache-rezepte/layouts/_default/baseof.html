@@ -1,117 +1,38 @@
 <!DOCTYPE html>
-<html lang="{{ $.Site.LanguageCode | default "de" }}">
+<html lang="de">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#e86830">
-    
-    <title>{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }} | {{ $.Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ $.Site.Params.description }}{{ end }}{{ end }}">
-    
-    {{ with $.Site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
-    <meta name="author" content="{{ $.Site.Params.author }}">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}">
-    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
-    <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
-    <meta property="og:url" content="{{ .Permalink }}">
-    <meta property="og:site_name" content="{{ $.Site.Title }}">
-    <meta property="og:locale" content="de_DE">
-    {{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="{{ if .Params.image }}summary_large_image{{ else }}summary{{ end }}">
-    <meta name="twitter:title" content="{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}">
-    <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
-    {{ with .Params.image }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
-    
-    <!-- Canonical -->
-    <link rel="canonical" href="{{ .Permalink }}">
-    
-    <!-- RSS -->
-    {{ with .OutputFormats.Get "RSS" }}
-    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
-    <link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}">
-    {{ end }}
-    
-    <!-- Sitemap -->
-    <link rel="sitemap" type="application/xml" href="{{ "sitemap.xml" | absURL }}">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ "css/style.css" | absURL }}">
-    
-    <!-- Schema.org -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "{{ if .IsHome }}WebSite{{ else }}Recipe{{ end }}",
-        "name": "{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}",
-        "url": "{{ .Permalink }}",
-        "description": "{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}",
-        "inLanguage": "de-DE"
-        {{ if not .IsHome }}
-        {{ with .Params.cookTime }},"cookTime": "PT{{ . | replaceRE "[^0-9]" "" }}M"{{ end }}
-        {{ with .Params.calories }},"nutrition": {"@type": "NutritionInformation", "calories": "{{ . }} kcal"}{{ end }}
-        {{ end }}
-    }
-    </script>
+{{ partial "head.html" . }}
 </head>
 <body>
-    <header class="site-header">
-        <nav class="nav-container">
-            <a href="{{ "" | absURL }}" class="site-logo">👨‍🍳 {{ $.Site.Title }}</a>
-            
-            <div class="nav-links" id="nav-links">
-                <a href="{{ "" | absURL }}">Start</a>
-                <a href="{{ "posts/" | absURL }}">Rezepte</a>
-                <a href="{{ "ueber-uns/" | absURL }}">Über uns</a>
-                <a href="{{ "impressum/" | absURL }}">Impressum</a>
-                <button class="nav-search-btn" onclick="document.getElementById('search-input')?.focus()">
-                    <span>🔍</span><span>Suche</span>
-                </button>
-            </div>
-            
-            <button class="nav-mobile-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')" aria-label="Menü">
-                ☰
-            </button>
-        </nav>
-    </header>
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
-    <main class="container">
-        {{ block "main" . }}{{ end }}
-    </main>
+<header class="kopf">
+  <div class="wrap kopf-inner">
+    <a class="marke" href="{{ "" | relURL }}">
+      Einfache Rezepte
+      <span class="marke-nr">{{ len (where site.RegularPages "Section" "posts") }} Rezepte</span>
+    </a>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>👨‍🍳 Einfache Rezepte</h3>
-                <p>Leckere, einfache Gerichte für jeden Tag. Von klassisch bis modern – wir zeigen dir, wie's geht. Mit 20+ Jahren Koch-Erfahrung.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Rechtliches</h3>
-                <ul>
-                    <li><a href="{{ "impressum/" | absURL }}">Impressum</a></li>
-                    <li><a href="{{ "datenschutz/" | absURL }}">Datenschutz</a></li>
-                    <li><a href="{{ "ueber-uns/" | absURL }}">Über uns</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Beliebte Kategorien</h3>
-                <ul>
-                    <li><a href="{{ "tags/schnelle-rezepte/" | absURL }}">Schnelle Rezepte</a></li>
-                    <li><a href="{{ "tags/gesund/" | absURL }}">Gesunde Rezepte</a></li>
-                    <li><a href="{{ "tags/backen/" | absURL }}">Backrezepte</a></li>
-                    <li><a href="{{ "tags/deutsche-kueche/" | absURL }}">Deutsche Küche</a></li>
-                    <li><a href="{{ "tags/vegetarisch/" | absURL }}">Vegetarisch</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; {{ now.Format "2006" }} {{ $.Site.Title }}. Alle Rechte vorbehalten.</p>
-            <p class="affiliate-notice">* Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Alle Preise inkl. MwSt.</p>
-        </div>
-    </footer>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnav" aria-label="Menü öffnen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+
+    <nav class="nav" id="hauptnav" aria-label="Hauptnavigation">
+      {{ $aktuell := . }}
+      {{ range site.Menus.main }}
+      <a href="{{ .URL | relURL }}"{{ if $aktuell.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+    </nav>
+  </div>
+</header>
+
+<main id="inhalt">
+  {{ block "main" . }}{{ end }}
+</main>
+
+{{ partial "fuss.html" . }}
+
+<script src="{{ "js/app.js" | relURL }}" defer></script>
+{{ block "skripte" . }}{{ end }}
 </body>
 </html>

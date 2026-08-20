@@ -1,0 +1,24 @@
+{{- /*
+  Nimmt eine beliebige Zeitangabe entgegen und gibt ganze Minuten als int zurueck.
+  Akzeptiert: 25 | "25" | "25 Min." | "ca. 30 Minuten" | "1 Std 15" | "1,5 h"
+  Rueckgabe: 0, wenn nichts Sinnvolles gefunden wurde.
+*/ -}}
+{{- $roh := printf "%v" (default "" .) -}}
+{{- $minuten := 0 -}}
+{{- if $roh -}}
+  {{- $stunden := 0 -}}
+  {{- $rest := $roh -}}
+  {{- $treffer := findRESubmatch `(?i)([0-9]+)\s*(std\.?|stunden?|h)\b` $roh 1 -}}
+  {{- range $treffer -}}
+    {{- $stunden = int (index . 1) -}}
+  {{- end -}}
+  {{- if gt $stunden 0 -}}
+    {{- $rest = replaceRE `(?i)([0-9]+)\s*(std\.?|stunden?|h)\b` "" $roh -}}
+  {{- end -}}
+  {{- $ziffern := replaceRE `[^0-9]` "" $rest -}}
+  {{- if $ziffern -}}
+    {{- $minuten = int $ziffern -}}
+  {{- end -}}
+  {{- $minuten = add $minuten (mul $stunden 60) -}}
+{{- end -}}
+{{- return $minuten -}}

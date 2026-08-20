@@ -1,0 +1,17 @@
+{{- /* Absolute URL eines Bildes, moeglichst als 1200px-JPEG (Social-Vorschau). */ -}}
+{{- $pfad := printf "%v" (default "" .pfad) -}}
+{{- $url := "" -}}
+{{- if $pfad -}}
+  {{- if or (hasPrefix $pfad "http") (hasPrefix $pfad "//") -}}
+    {{- $url = $pfad -}}
+  {{- else -}}
+    {{- $res := partial "bild-ressource.html" (dict "page" .page "pfad" $pfad) -}}
+    {{- if $res -}}
+      {{- $b := cond (ge $res.Width 1200) 1200 $res.Width -}}
+      {{- $url = ($res.Resize (printf "%dx jpg q82" $b)).Permalink -}}
+    {{- else -}}
+      {{- $url = $pfad | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $url -}}

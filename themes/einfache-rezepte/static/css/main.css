@@ -1,0 +1,605 @@
+/* ==========================================================================
+   Einfache Rezepte — Designsystem "Kuechenkarte"
+   Selbst gehostete Schriften, keine externen Requests.
+   ========================================================================== */
+
+/* --- Schriften (lokal, DSGVO-konform) --- */
+@font-face {
+  font-family: 'Zilla Slab';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/zilla-slab-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/plex-sans-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/plex-sans-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/plex-sans-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/plex-mono-500.woff2') format('woff2');
+}
+
+/* --- Tokens --- */
+:root {
+  --ink: #15201c;
+  --ink-2: #4a5852;
+  --ink-3: #7d8a84;
+  --emaille: #0e3a31;
+  --emaille-2: #1a6353;
+  --emaille-3: #e6efec;
+  --safran: #b8781a;
+  --safran-bg: #fdf3e0;
+  --papier: #fbfaf7;
+  --karte: #ffffff;
+  --linie: #e0ddd4;
+  --linie-soft: #efece4;
+  --warn-bg: #fdf3e0;
+
+  --font-display: 'Zilla Slab', Georgia, 'Times New Roman', serif;
+  --font-body: 'Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  --r-sm: 3px;
+  --r: 6px;
+  --r-lg: 10px;
+
+  --breite: 1160px;
+  --breite-text: 68ch;
+  --kopf-h: 60px;
+
+  --schatten: 0 1px 2px rgba(21, 32, 28, .05), 0 4px 14px rgba(21, 32, 28, .05);
+  --schatten-hoch: 0 2px 4px rgba(21, 32, 28, .06), 0 12px 32px rgba(21, 32, 28, .1);
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--kopf-h) + 1rem); -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--papier);
+  -webkit-font-smoothing: antialiased;
+  font-synthesis-weight: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+img, svg, video { max-width: 100%; height: auto; display: block; }
+a { color: var(--emaille-2); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--emaille); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--safran);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 1rem; top: -4rem; z-index: 300;
+  background: var(--emaille); color: #fff;
+  padding: .6rem 1rem; border-radius: var(--r);
+  transition: top .15s;
+}
+.skip-link:focus { top: .75rem; color: #fff; }
+
+/* --- Typografie --- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.1rem); }
+h2 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
+h3 { font-size: 1.15rem; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--safran);
+}
+.lede { font-size: 1.08rem; color: var(--ink-2); max-width: 60ch; }
+
+/* --- Layout --- */
+.wrap { width: 100%; max-width: var(--breite); margin-inline: auto; padding-inline: 1.25rem; }
+main { flex: 1 0 auto; padding-bottom: 4rem; }
+.abschnitt { margin-top: 3.5rem; }
+.abschnitt-kopf { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 2px solid var(--ink); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+.abschnitt-kopf h2 { margin: 0; }
+.abschnitt-kopf a { font-size: .9rem; font-weight: 500; white-space: nowrap; }
+
+/* ==========================================================================
+   Kopfzeile
+   ========================================================================== */
+.kopf {
+  position: sticky; top: 0; z-index: 120;
+  background: var(--emaille);
+  color: #e8f0ed;
+  height: var(--kopf-h);
+}
+.kopf-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; gap: 1rem; }
+.marke {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.22rem; color: #fff; text-decoration: none;
+  display: flex; align-items: baseline; gap: .5rem;
+}
+.marke:hover { color: #fff; }
+.marke-nr {
+  font-family: var(--font-mono); font-size: .68rem; font-weight: 500;
+  letter-spacing: .1em; color: var(--safran);
+  background: rgba(255, 255, 255, .08);
+  padding: .12rem .45rem; border-radius: var(--r-sm);
+}
+
+.nav { display: flex; align-items: center; gap: .35rem; }
+.nav a {
+  color: #cfe0da; text-decoration: none;
+  font-size: .93rem; font-weight: 500;
+  padding: .4rem .7rem; border-radius: var(--r);
+  transition: background .15s, color .15s;
+}
+.nav a:hover, .nav a[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #fff; }
+
+.nav-toggle {
+  display: none; background: rgba(255, 255, 255, .1); border: 0;
+  color: #fff; width: 40px; height: 36px; border-radius: var(--r);
+  align-items: center; justify-content: center;
+}
+.nav-toggle svg { width: 20px; height: 20px; }
+
+@media (max-width: 800px) {
+  .nav-toggle { display: inline-flex; }
+  .nav {
+    position: absolute; inset-inline: 0; top: var(--kopf-h);
+    flex-direction: column; align-items: stretch;
+    background: var(--emaille); padding: .5rem 1.25rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    box-shadow: var(--schatten-hoch);
+    display: none;
+  }
+  .nav.offen { display: flex; }
+  .nav a { padding: .7rem .5rem; }
+}
+
+/* ==========================================================================
+   Startseite: Suchkopf
+   ========================================================================== */
+.suchkopf {
+  background: var(--karte);
+  border-bottom: 1px solid var(--linie);
+  padding-block: 2.75rem 2rem;
+}
+.suchkopf h1 { margin: .35rem 0 .5rem; max-width: 20ch; }
+.suchkopf .lede { margin-bottom: 1.5rem; }
+
+.suchfeld { position: relative; max-width: 560px; }
+.suchfeld input {
+  width: 100%;
+  padding: .95rem 1rem .95rem 3rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+  background: var(--papier);
+  font-size: 1rem;
+}
+.suchfeld input::placeholder { color: var(--ink-3); }
+.suchfeld input:focus { outline: none; border-color: var(--safran); box-shadow: 0 0 0 4px var(--safran-bg); }
+.suchfeld .lupe {
+  position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: var(--ink-3); pointer-events: none;
+}
+.suchfeld .loeschen {
+  position: absolute; right: .6rem; top: 50%; transform: translateY(-50%);
+  border: 0; background: var(--linie-soft); color: var(--ink-2);
+  width: 28px; height: 28px; border-radius: 50%; line-height: 1;
+  display: none;
+}
+.suchfeld.hat-text .loeschen { display: block; }
+
+.schnellfilter { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+
+/* --- Filterleiste --- */
+.filterleiste {
+  position: sticky; top: var(--kopf-h); z-index: 90;
+  background: rgba(251, 250, 247, .95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linie);
+  padding-block: .75rem;
+}
+.filterleiste-inner { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.treffer {
+  font-family: var(--font-mono); font-size: .82rem; font-weight: 500;
+  color: var(--ink-2); margin-right: auto;
+}
+.treffer b { color: var(--ink); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  border: 1px solid var(--linie); background: var(--karte);
+  color: var(--ink-2); font-size: .85rem; font-weight: 500;
+  padding: .38rem .8rem; border-radius: var(--r);
+  text-decoration: none; transition: all .15s;
+}
+.chip:hover { border-color: var(--ink-3); color: var(--ink); }
+.chip[aria-pressed="true"], .chip.aktiv {
+  background: var(--emaille); border-color: var(--emaille); color: #fff;
+}
+.chip .zahl { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-3); }
+.chip[aria-pressed="true"] .zahl, .chip.aktiv .zahl { color: rgba(255, 255, 255, .7); }
+
+select.filter-select {
+  border: 1px solid var(--linie); background: var(--karte);
+  padding: .38rem .6rem; border-radius: var(--r);
+  font-size: .85rem; font-weight: 500;
+}
+
+/* ==========================================================================
+   Rezeptkarten
+   ========================================================================== */
+.karten {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin-top: 1.75rem;
+}
+.karte {
+  display: flex; flex-direction: column;
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.karte:hover { transform: translateY(-3px); border-color: var(--ink-3); box-shadow: var(--schatten-hoch); }
+.karte:focus-within { border-color: var(--safran); }
+
+.karte-bild { position: relative; aspect-ratio: 4 / 3; background: var(--emaille-3); overflow: hidden; }
+.karte-bild img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.karte:hover .karte-bild img { transform: scale(1.04); }
+.karte-bild-leer {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 700;
+  color: var(--emaille); background: repeating-linear-gradient(135deg, #eef4f2 0 12px, #e6efec 12px 24px);
+}
+.karte-zeit {
+  position: absolute; left: .6rem; bottom: .6rem;
+  font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
+  background: rgba(14, 58, 49, .92); color: #fff;
+  padding: .2rem .5rem; border-radius: var(--r-sm);
+}
+
+.karte-inhalt { padding: .95rem 1rem 1.1rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+.karte-kat { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--safran); }
+.karte h3 { font-size: 1.12rem; line-height: 1.25; }
+.karte h3 a { color: var(--ink); text-decoration: none; }
+.karte h3 a::after { content: ''; position: absolute; inset: 0; }
+.karte { position: relative; }
+.karte h3 a:hover { color: var(--emaille-2); }
+.karte p {
+  font-size: .9rem; color: var(--ink-2); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.karte-fuss {
+  margin-top: auto; padding-top: .7rem; border-top: 1px solid var(--linie-soft);
+  display: flex; gap: 1rem;
+  font-family: var(--font-mono); font-size: .76rem; color: var(--ink-3);
+}
+
+.leer-zustand {
+  grid-column: 1 / -1;
+  border: 2px dashed var(--linie);
+  border-radius: var(--r-lg);
+  padding: 3rem 1.5rem; text-align: center;
+}
+.leer-zustand h3 { margin-bottom: .4rem; }
+.leer-zustand p { color: var(--ink-2); margin-bottom: 1rem; }
+
+/* ==========================================================================
+   Rezeptseite
+   ========================================================================== */
+.rezept { max-width: var(--breite); margin-inline: auto; }
+.krumen {
+  font-family: var(--font-mono); font-size: .75rem; color: var(--ink-3);
+  margin: 1.5rem 0 .75rem; display: flex; gap: .4rem; flex-wrap: wrap;
+}
+.krumen a { color: var(--ink-3); text-decoration: none; }
+.krumen a:hover { color: var(--emaille); text-decoration: underline; }
+
+.rezept-kopf { max-width: var(--breite-text); }
+.rezept-kopf h1 { margin: .3rem 0 .7rem; }
+.rezept-kopf .lede { font-size: 1.1rem; }
+.rezept-meta {
+  font-family: var(--font-mono); font-size: .78rem; color: var(--ink-3);
+  margin-top: .9rem; display: flex; gap: 1rem; flex-wrap: wrap;
+}
+
+.rezept-bild { margin: 1.75rem 0 0; border-radius: var(--r-lg); overflow: hidden; background: var(--emaille-3); }
+.rezept-bild img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* Eckdaten-Leiste */
+.eckdaten {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  border: 1px solid var(--linie); border-radius: var(--r-lg);
+  background: var(--karte); overflow: hidden;
+  margin: 1.75rem 0 2.5rem;
+}
+.eckdaten div { padding: .9rem 1rem; border-right: 1px solid var(--linie-soft); }
+.eckdaten div:last-child { border-right: 0; }
+.eckdaten dt {
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: .2rem;
+}
+.eckdaten dd { font-size: 1.02rem; font-weight: 600; }
+@media (max-width: 640px) {
+  .eckdaten { grid-template-columns: repeat(2, 1fr); }
+  .eckdaten div { border-bottom: 1px solid var(--linie-soft); }
+}
+
+/* Zweispalter */
+.rezept-raster { display: grid; grid-template-columns: minmax(280px, 340px) minmax(0, 1fr); gap: 3rem; align-items: start; }
+@media (max-width: 900px) { .rezept-raster { grid-template-columns: 1fr; gap: 2rem; } }
+
+.seitenspalte { position: sticky; top: calc(var(--kopf-h) + 1.5rem); display: grid; gap: 1.25rem; }
+@media (max-width: 900px) { .seitenspalte { position: static; } }
+
+.block {
+  background: var(--karte); border: 1px solid var(--linie);
+  border-radius: var(--r-lg); padding: 1.25rem;
+}
+.block > h2 { font-size: 1.15rem; margin-bottom: .9rem; }
+
+/* Portionsregler */
+.portionen {
+  display: flex; align-items: center; gap: .6rem;
+  padding-bottom: .9rem; margin-bottom: .5rem;
+  border-bottom: 1px solid var(--linie);
+}
+.portionen span:first-child { font-size: .85rem; color: var(--ink-2); margin-right: auto; }
+.portionen button {
+  width: 32px; height: 32px; border-radius: var(--r);
+  border: 1px solid var(--linie); background: var(--papier);
+  font-size: 1.1rem; line-height: 1; color: var(--ink);
+  display: grid; place-items: center;
+}
+.portionen button:hover:not(:disabled) { background: var(--emaille); border-color: var(--emaille); color: #fff; }
+.portionen button:disabled { opacity: .35; cursor: not-allowed; }
+.portionen output { font-family: var(--font-mono); font-weight: 500; min-width: 2.2ch; text-align: center; }
+
+/* Zutatenliste: Mengen in eigener Mono-Spalte */
+.zutaten { list-style: none; }
+.zutaten li {
+  display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem;
+  padding: .5rem 0; border-bottom: 1px solid var(--linie-soft);
+  font-size: .95rem; align-items: baseline;
+}
+.zutaten li:last-child { border-bottom: 0; }
+.zutaten .menge {
+  font-family: var(--font-mono); font-weight: 500; font-size: .88rem;
+  color: var(--emaille); text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.zutaten li.frei { grid-template-columns: 1fr; }
+.zutaten li.zutaten-gruppe {
+  display: block;
+  grid-template-columns: none;
+  border-bottom: 0;
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--safran);
+  margin: 1rem 0 .35rem; padding: .5rem 0 0; border-top: 1px solid var(--linie);
+}
+.zutaten li.zutaten-gruppe:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* Naehrwerte */
+.naehrwerte { display: grid; gap: .1rem; }
+.naehrwerte div { display: flex; justify-content: space-between; padding: .35rem 0; border-bottom: 1px dotted var(--linie); font-size: .9rem; }
+.naehrwerte div:last-child { border-bottom: 0; }
+.naehrwerte dt { color: var(--ink-2); }
+.naehrwerte dd { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.naehrwerte-hinweis { font-size: .75rem; color: var(--ink-3); margin-top: .6rem; }
+
+/* Zubereitung */
+.schritte { list-style: none; counter-reset: schritt; display: grid; gap: 1.5rem; }
+.schritte li { counter-increment: schritt; display: grid; grid-template-columns: 2.5rem 1fr; gap: 1.1rem; }
+.schritte li::before {
+  content: counter(schritt, decimal-leading-zero);
+  font-family: var(--font-mono); font-weight: 500; font-size: .9rem;
+  color: var(--safran);
+  border-top: 2px solid var(--ink); padding-top: .45rem;
+}
+.schritte li > div { padding-top: .3rem; }
+.schritte p { max-width: var(--breite-text); }
+@media (max-width: 520px) {
+  .schritte li { grid-template-columns: 1fr; gap: .35rem; }
+  .schritte li::before { display: inline-block; }
+}
+
+.kochmodus-start {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: var(--emaille); color: #fff; border: 0;
+  padding: .8rem 1.3rem; border-radius: var(--r);
+  font-weight: 600; font-size: .95rem;
+  margin-bottom: 2rem;
+  transition: background .15s, transform .15s;
+}
+.kochmodus-start:hover { background: var(--emaille-2); transform: translateY(-1px); }
+.kochmodus-start svg { width: 18px; height: 18px; }
+
+/* Fliesstext im Rezept */
+.fliesstext { max-width: var(--breite-text); }
+.fliesstext > * + * { margin-top: 1.1rem; }
+.fliesstext h2 { margin-top: 2.5rem; padding-bottom: .4rem; border-bottom: 2px solid var(--ink); }
+.fliesstext h3 { margin-top: 1.8rem; }
+.fliesstext ul, .fliesstext ol { padding-left: 1.3rem; }
+.fliesstext li + li { margin-top: .35rem; }
+.fliesstext table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+.fliesstext th, .fliesstext td { padding: .55rem .6rem; border-bottom: 1px solid var(--linie); text-align: left; }
+.fliesstext th { background: var(--emaille-3); font-weight: 600; }
+.fliesstext blockquote {
+  border-left: 3px solid var(--safran); padding-left: 1rem;
+  color: var(--ink-2); font-style: italic;
+}
+.fliesstext img { border-radius: var(--r); margin-block: 1.5rem; }
+
+/* Hinweise */
+.hinweis {
+  background: var(--warn-bg); border: 1px solid #f0dcb4;
+  border-radius: var(--r); padding: .8rem 1rem;
+  font-size: .85rem; color: #6b4a15;
+}
+.hinweis a { color: #6b4a15; }
+.affiliate-hinweis { margin: 1.5rem 0; }
+
+/* Schlagwoerter */
+.schlagwoerter { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 2.5rem; }
+.schlagwort {
+  font-family: var(--font-mono); font-size: .78rem;
+  background: var(--emaille-3); color: var(--emaille);
+  padding: .25rem .6rem; border-radius: var(--r-sm); text-decoration: none;
+}
+.schlagwort:hover { background: var(--emaille); color: #fff; }
+
+.blaettern { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--linie); font-size: .92rem; }
+.blaettern a { text-decoration: none; font-weight: 500; }
+.blaettern a:hover { text-decoration: underline; }
+
+/* ==========================================================================
+   Kochmodus (Vollbild)
+   ========================================================================== */
+.kochmodus {
+  position: fixed; inset: 0; z-index: 500;
+  background: var(--emaille); color: #f2f7f5;
+  display: none; flex-direction: column;
+}
+.kochmodus[open], .kochmodus.aktiv { display: flex; }
+.km-kopf {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.km-titel { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: #fff; }
+.km-schliessen {
+  background: rgba(255, 255, 255, .12); border: 0; color: #fff;
+  width: 40px; height: 40px; border-radius: var(--r); font-size: 1.2rem; line-height: 1;
+}
+.km-koerper { flex: 1; display: grid; place-items: center; padding: 1.5rem 1.25rem; overflow-y: auto; }
+.km-schritt { max-width: 34ch; text-align: left; }
+.km-zaehler { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .12em; color: var(--safran); margin-bottom: 1rem; }
+.km-text { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.1rem + 2.2vw, 2.4rem); line-height: 1.25; color: #fff; }
+.km-zutaten { margin-top: 1.5rem; font-size: .9rem; color: #b9d0c9; }
+.km-zutaten li { padding: .2rem 0; }
+.km-timer {
+  display: inline-flex; align-items: center; gap: .5rem;
+  margin-top: 1.5rem; background: var(--safran); color: #1a1200;
+  border: 0; padding: .7rem 1.1rem; border-radius: var(--r); font-weight: 600;
+  font-family: var(--font-mono);
+}
+.km-fuss { display: flex; gap: .75rem; padding: 1rem 1.25rem 1.5rem; border-top: 1px solid rgba(255, 255, 255, .12); }
+.km-fuss button {
+  flex: 1; padding: .95rem 1rem; border-radius: var(--r);
+  border: 1px solid rgba(255, 255, 255, .25); background: transparent; color: #fff;
+  font-weight: 600;
+}
+.km-fuss button.primaer { background: #fff; color: var(--emaille); border-color: #fff; }
+.km-fuss button:disabled { opacity: .35; }
+.km-fortschritt { height: 3px; background: rgba(255, 255, 255, .15); }
+.km-fortschritt span { display: block; height: 100%; background: var(--safran); transition: width .25s ease; }
+
+/* ==========================================================================
+   Listen- und Taxonomieseiten
+   ========================================================================== */
+.seitenkopf { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid var(--linie); margin-bottom: 1.5rem; }
+.seitenkopf h1 { margin-bottom: .5rem; }
+
+.blaetterei { display: flex; justify-content: center; gap: .4rem; margin-top: 3rem; }
+.blaetterei li { list-style: none; }
+.blaetterei a, .blaetterei span {
+  display: grid; place-items: center; min-width: 40px; height: 40px; padding-inline: .6rem;
+  border: 1px solid var(--linie); border-radius: var(--r);
+  background: var(--karte); text-decoration: none; font-size: .9rem;
+}
+.blaetterei .active a, .blaetterei .active span { background: var(--emaille); border-color: var(--emaille); color: #fff; }
+.blaetterei .disabled { display: none; }
+
+/* Inhaltsseiten (Impressum, Datenschutz, Ueber uns) */
+.textseite { max-width: var(--breite-text); padding-block: 2.5rem; }
+.textseite h1 { margin-bottom: 1.5rem; }
+.textseite h2 { margin-top: 2.5rem; margin-bottom: .6rem; }
+.textseite p + p, .textseite ul, .textseite ol { margin-top: 1rem; }
+.textseite ul, .textseite ol { padding-left: 1.3rem; }
+
+/* 404 */
+.fehlerseite { text-align: center; padding-block: 5rem; }
+.fehlerseite .code { font-family: var(--font-mono); font-size: 4rem; color: var(--safran); }
+
+/* ==========================================================================
+   Fusszeile
+   ========================================================================== */
+.fuss { background: var(--emaille); color: #b9d0c9; padding-block: 3rem 1.5rem; margin-top: auto; }
+.fuss-raster { display: grid; grid-template-columns: 1.4fr repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; }
+.fuss h2 { font-size: .8rem; font-family: var(--font-mono); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--safran); margin-bottom: .8rem; }
+.fuss p { font-size: .9rem; line-height: 1.6; }
+.fuss ul { list-style: none; }
+.fuss li { margin-bottom: .4rem; }
+.fuss a { color: #cfe0da; text-decoration: none; font-size: .9rem; }
+.fuss a:hover { color: #fff; text-decoration: underline; }
+.fuss-marke { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: .6rem; }
+.fuss-unten {
+  margin-top: 2.5rem; padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  font-size: .78rem; color: #8fada5;
+}
+
+/* Druckansicht */
+@media print {
+  .kopf, .fuss, .filterleiste, .kochmodus, .kochmodus-start, .blaettern, .schlagwoerter, .seitenspalte-verstecken { display: none !important; }
+  body { background: #fff; font-size: 12pt; }
+  .rezept-raster { grid-template-columns: 1fr; }
+  a { color: inherit; text-decoration: none; }
+}

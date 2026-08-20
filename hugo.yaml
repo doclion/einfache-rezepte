@@ -1,64 +1,82 @@
 baseURL: "https://doclion.github.io/einfache-rezepte/"
 languageCode: "de-de"
-title: "Einfache Rezepte - Leckere Gerichte für jeden Tag"
-theme: "einfache-rezepte"
 defaultContentLanguage: "de"
-hasCJKLanguage: false
+title: "Einfache Rezepte"
+theme: "einfache-rezepte"
+timeZone: "Europe/Berlin"
+enableRobotsTXT: true
+enableEmoji: true
+
+# canonifyURLs war hier drin und ist der Grund fuer kaputte Links beim
+# Domainwechsel. Absichtlich entfernt: alle Links laufen ueber relURL.
+
+pagination:
+  pagerSize: 12
+
 permalinks:
   posts: "/:slug/"
+
 taxonomies:
   tags: "tags"
   categories: "categories"
 
-# SEO
-enableRobotsTXT: true
-canonifyURLs: true
-
-# Sitemap
 sitemap:
   changefreq: "weekly"
   filename: "sitemap.xml"
-  priority: 0.5
+  priority: 0.6
 
-# Output formats
 outputs:
   home: ["HTML", "RSS"]
   page: ["HTML"]
   section: ["HTML", "RSS"]
 
-# Markdown
 markup:
   goldmark:
     renderer:
       unsafe: true
+  highlight:
+    noClasses: false
 
-# Params
+imaging:
+  quality: 78
+  resampleFilter: "Lanczos"
+
+menus:
+  main:
+    - name: "Rezepte"
+      url: "/posts/"
+      weight: 10
+    - name: "Kategorien"
+      url: "/categories/"
+      weight: 20
+    - name: "Über uns"
+      url: "/ueber-uns/"
+      weight: 30
+
 params:
-  description: "Einfache Rezepte für jeden Tag - Von schnellen Gerichten über gesunde Optionen bis zu Backrezepten. Schritt-für-Schritt Anleitungen."
-  author: "KüchenRat"
-  keywords: "Rezepte, einfache Rezepte, kochen, backen, deutsche Küche, schnelle Gerichte, Fürth, Franken, Deutschland, vegetarisch, vegan, Hausmannskost"
-  keyword_meta: "einfache Rezepte, deutsche Küche, kochen lernen, schnelle Gerichte, Fürth Rezepte, fränkische Küche, Meal Prep, Backrezepte, Suppen, Bowls"
-  mainSections: ["posts"]
-  dateFormat: "02.01.2006"
-  language: "de"
-  # Affiliate config
-  affiliateText: "Dieser Beitrag enthält Affiliate-Links. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen."
+  description: "Alltagstaugliche Rezepte mit klaren Mengenangaben, ehrlichen Zeitangaben und Schritt-für-Schritt-Kochmodus."
+  author: "Max Mustermann"          # TODO: echten Namen eintragen
+  siteAltName: "Einfache Rezepte — Kochen für jeden Tag"
+  footerText: "Alltagstaugliche Rezepte mit klaren Mengenangaben und Schritten, die auch beim ersten Versuch funktionieren."
+  # defaultImage: "bilder/social-fallback.jpg"   # in assets/ ablegen, optional
+  # logo: "bilder/logo.png"                      # optional, fuer Schema.org publisher
+
+  affiliateText: "Einige Links auf dieser Seite sind Provisions-Links. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Für dich ändert sich der Preis dadurch nicht."
+  affiliateHinweisOben: true        # Kennzeichnung vor dem ersten Link, nicht erst im Footer
   amazonTag: "einfachrezepte21"
-  # SEO Erweiterungen
+
   seo:
-    googleVerification: ""  # Google Search Console Code eintragen
-    bingVerification: ""    # Bing Webmaster Code eintragen
-    pinterestVerification: "" # Pinterest Anspruchs-Code eintragen
-    recipeSchema: true       # Recipe Schema.org JSON-LD aktivieren
-    locale: "de_DE"
-    siteAltName: "Einfache Rezepte Blog - Kochen leicht gemacht"
-  # Social
-  social:
-    - name: "GitHub"
-      url: "https://github.com/example/einfache-rezepte"
-  # Contact for imprint
-  contact:
+    googleVerification: ""
+    bingVerification: ""
+    pinterestVerification: ""
+
+  # Pflichtangaben nach § 5 DDG. Diese Werte landen im Impressum.
+  # TODO: vollstaendig und wahrheitsgemaess ausfuellen, sonst abmahnfaehig.
+  kontakt:
     name: "Max Mustermann"
-    address: "Musterstraße 1, 90762 Fürth, Deutschland"
-    email: "kontakt@einfache-rezepte.de"
-    phone: "+49 911 123456789"
+    strasse: "Musterstraße 1"
+    ort: "90762 Fürth"
+    land: "Deutschland"
+    email: "kontakt@example.de"
+    telefon: ""
+    ustid: ""

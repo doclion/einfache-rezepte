@@ -1,0 +1,186 @@
+{{ define "main" }}
+{{ $prep := partial "minuten.html" .Params.prepTime }}
+{{ $cook := partial "minuten.html" .Params.cookTime }}
+{{ $gesamt := add $prep $cook }}
+{{ $portionen := int (default 4 .Params.servings) }}
+{{ $zutaten := partial "zutaten-daten.html" .Params.ingredients }}
+{{ $hatDaten := and .Params.ingredients .Params.instructions }}
+{{ if not $hatDaten }}{{ warnf "Rezept ohne ingredients/instructions im Frontmatter: %s — kein Recipe-Schema, kein Kochmodus. Mit tools/rezepte-migrieren.py umstellen." .File.Path }}{{ end }}
+
+<div class="wrap rezept">
+  <nav class="krumen" aria-label="Brotkrumen">
+    <a href="{{ "" | relURL }}">Start</a> <span aria-hidden="true">/</span>
+    <a href="{{ "posts/" | relURL }}">Rezepte</a> <span aria-hidden="true">/</span>
+    <span>{{ .Title }}</span>
+  </nav>
+
+  <header class="rezept-kopf">
+    {{ with .Params.categories }}<p class="eyebrow">{{ index . 0 }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ partial "beschreibung.html" . }}</p>
+    <p class="rezept-meta">
+      <span>{{ site.Params.author }}</span>
+      <span>Aktualisiert {{ .Lastmod.Format "02.01.2006" }}</span>
+      {{ with .Params.cuisine }}<span>{{ . }}</span>{{ end }}
+    </p>
+  </header>
+
+  {{ with .Params.image }}
+  <figure class="rezept-bild">
+    {{ partial "bild.html" (dict "page" $ "pfad" . "alt" $.Title "laden" "eager" "prio" "high" "sizes" "(max-width: 1160px) 100vw, 1160px") }}
+  </figure>
+  {{ end }}
+
+  <dl class="eckdaten">
+    <div><dt>Vorbereitung</dt><dd>{{ partial "dauer.html" $prep }}</dd></div>
+    <div><dt>Garzeit</dt><dd>{{ partial "dauer.html" $cook }}</dd></div>
+    <div><dt>Gesamt</dt><dd>{{ partial "dauer.html" $gesamt }}</dd></div>
+    <div><dt>Portionen</dt><dd>{{ $portionen }}</dd></div>
+    <div><dt>Aufwand</dt><dd>{{ .Params.difficulty | default "Mittel" }}</dd></div>
+  </dl>
+
+  {{ if site.Params.affiliateHinweisOben }}
+  <p class="hinweis affiliate-hinweis">{{ site.Params.affiliateText }}</p>
+  {{ end }}
+
+  <div class="rezept-raster">
+    <aside class="seitenspalte">
+      {{ if $zutaten }}
+      <section class="block" id="zutaten">
+        <h2>Zutaten</h2>
+        <div class="portionen">
+          <span>Portionen</span>
+          <button type="button" id="portion-minus" aria-label="Eine Portion weniger">−</button>
+          <output id="portion-anzeige" for="portion-minus portion-plus" data-basis="{{ $portionen }}">{{ $portionen }}</output>
+          <button type="button" id="portion-plus" aria-label="Eine Portion mehr">+</button>
+        </div>
+        <ul class="zutaten" id="zutatenliste">
+          {{ range $zutaten }}
+            {{ with .gruppe }}<li class="zutaten-gruppe">{{ . }}</li>{{ end }}
+            {{ if gt .menge 0.0 }}
+            <li>
+              <span class="menge" data-basismenge="{{ .menge }}">{{ .mengeText }}{{ with .einheit }} {{ . }}{{ end }}</span>
+              <span class="zutat-name">{{ .name }}</span>
+            </li>
+            {{ else }}
+            <li class="frei"><span class="zutat-name">{{ .name }}</span></li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      </section>
+      {{ end }}
+
+      {{ if .Params.calories }}
+      <section class="block">
+        <h2>Nährwerte je Portion</h2>
+        <dl class="naehrwerte">
+          <div><dt>Kalorien</dt><dd>{{ .Params.calories }} kcal</dd></div>
+          {{ with .Params.protein }}<div><dt>Eiweiß</dt><dd>{{ . }} g</dd></div>{{ end }}
+          {{ with .Params.fat }}<div><dt>Fett</dt><dd>{{ . }} g</dd></div>{{ end }}
+          {{ with .Params.carbs }}<div><dt>Kohlenhydrate</dt><dd>{{ . }} g</dd></div>{{ end }}
+        </dl>
+        <p class="naehrwerte-hinweis">Berechnete Richtwerte, keine Angabe im Sinne der LMIV.</p>
+      </section>
+      {{ end }}
+    </aside>
+
+    <div>
+      {{ with .Content }}<div class="fliesstext">{{ . }}</div>{{ end }}
+
+      {{ with .Params.instructions }}
+      <section class="abschnitt" id="zubereitung">
+        <div class="abschnitt-kopf"><h2>Zubereitung</h2></div>
+        <button type="button" class="kochmodus-start" id="kochmodus-start">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 3l14 9-14 9V3z"/></svg>
+          Kochmodus starten
+        </button>
+        <ol class="schritte">
+          {{ range $i, $s := . }}
+          {{ $txt := "" }}{{ $name := "" }}
+          {{ if reflect.IsMap $s }}
+            {{ $txt = printf "%v" (default "" (index $s "text")) }}
+            {{ $name = printf "%v" (default "" (index $s "name")) }}
+          {{ else }}
+            {{ $txt = printf "%v" $s }}
+          {{ end }}
+          <li id="schritt-{{ add $i 1 }}">
+            <div>
+              {{ with $name }}<h3>{{ . }}</h3>{{ end }}
+              <p>{{ $txt | markdownify }}</p>
+            </div>
+          </li>
+          {{ end }}
+        </ol>
+      </section>
+      {{ end }}
+
+      {{ if not site.Params.affiliateHinweisOben }}
+      <p class="hinweis affiliate-hinweis">{{ site.Params.affiliateText }}</p>
+      {{ end }}
+
+      {{ with .Params.tags }}
+      <div class="schlagwoerter">
+        {{ range . }}<a class="schlagwort" href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ $verwandt := where (where site.RegularPages "Section" "posts") "Permalink" "ne" .Permalink }}
+  {{ with .Params.categories }}
+    {{ $k := index . 0 }}
+    {{ $gleich := where $verwandt ".Params.categories" "intersect" (slice $k) }}
+    {{ if ge (len $gleich) 3 }}{{ $verwandt = $gleich }}{{ end }}
+  {{ end }}
+  {{ $verwandt = first 3 $verwandt.ByDate.Reverse }}
+  {{ if $verwandt }}
+  <section class="abschnitt">
+    <div class="abschnitt-kopf"><h2>Passt auch dazu</h2><a href="{{ "posts/" | relURL }}">Alle Rezepte</a></div>
+    <div class="karten">
+      {{ range $verwandt }}{{ partial "karte.html" (dict "seite" .) }}{{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <nav class="blaettern" aria-label="Weitere Rezepte">
+    <span>{{ with .PrevInSection }}<a href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}</span>
+    <span>{{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}</span>
+  </nav>
+</div>
+
+{{ if .Params.instructions }}
+<div class="kochmodus" id="kochmodus" role="dialog" aria-modal="true" aria-label="Kochmodus" hidden>
+  <div class="km-fortschritt"><span id="km-balken" style="width:0%"></span></div>
+  <div class="km-kopf">
+    <span class="km-titel">{{ .Title }}</span>
+    <button type="button" class="km-schliessen" id="km-schliessen" aria-label="Kochmodus beenden">×</button>
+  </div>
+  <div class="km-koerper">
+    <div class="km-schritt">
+      <p class="km-zaehler" id="km-zaehler"></p>
+      <p class="km-text" id="km-text"></p>
+      <button type="button" class="km-timer" id="km-timer" hidden></button>
+    </div>
+  </div>
+  <div class="km-fuss">
+    <button type="button" id="km-zurueck">Zurück</button>
+    <button type="button" id="km-weiter" class="primaer">Weiter</button>
+  </div>
+</div>
+<script type="application/json" id="kochmodus-daten">
+{{- $schritte := slice -}}
+{{- range .Params.instructions -}}
+  {{- if reflect.IsMap . -}}
+    {{- $schritte = $schritte | append (printf "%v" (default "" (index . "text"))) -}}
+  {{- else -}}
+    {{- $schritte = $schritte | append (printf "%v" .) -}}
+  {{- end -}}
+{{- end -}}
+{{ dict "schritte" $schritte | jsonify | safeJS }}
+</script>
+{{ end }}
+{{ end }}
+
+{{ define "skripte" }}
+<script src="{{ "js/rezept.js" | relURL }}" defer></script>
+{{ end }}

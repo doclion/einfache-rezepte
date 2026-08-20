@@ -1,0 +1,16 @@
+{{- /* Beschreibung: Frontmatter -> Zusammenfassung -> Seitenbeschreibung. */ -}}
+{{- $t := "" -}}
+{{- with .Description -}}
+  {{- $t = . -}}
+{{- else -}}
+  {{- with .Params.summary -}}
+    {{- $t = . -}}
+  {{- else -}}
+    {{- if .IsPage -}}
+      {{- $t = .Summary | plainify | truncate 155 -}}
+    {{- else -}}
+      {{- $t = site.Params.description -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return (chomp (replaceRE `\s+` " " (plainify $t))) -}}

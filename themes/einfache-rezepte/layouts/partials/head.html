@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e3a31">
+
+{{- $titel := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) }}
+{{- with .Params.seoTitle }}{{ $titel = . }}{{ end }}
+<title>{{ $titel }}</title>
+<meta name="description" content="{{ partial "beschreibung.html" . }}">
+<meta name="author" content="{{ site.Params.author }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- if or .Params.noindex (eq .Kind "taxonomy") }}
+<meta name="robots" content="noindex, follow">
+{{- else }}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+{{- end }}
+
+{{- $ogBild := partial "bild-url.html" (dict "page" . "pfad" (default site.Params.defaultImage .Params.image)) }}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="de_DE">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:title" content="{{ cond .IsHome site.Title .Title }}">
+<meta property="og:description" content="{{ partial "beschreibung.html" . }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- with $ogBild }}
+<meta property="og:image" content="{{ . }}">
+<meta name="twitter:image" content="{{ . }}">
+{{- end }}
+<meta name="twitter:card" content="{{ cond (ne $ogBild "") "summary_large_image" "summary" }}">
+<meta name="twitter:title" content="{{ cond .IsHome site.Title .Title }}">
+<meta name="twitter:description" content="{{ partial "beschreibung.html" . }}">
+{{- if and .IsPage (eq .Section "posts") }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+
+{{- with site.Params.seo.googleVerification }}
+<meta name="google-site-verification" content="{{ . }}">
+{{- end }}
+{{- with site.Params.seo.bingVerification }}
+<meta name="msvalidate.01" content="{{ . }}">
+{{- end }}
+{{- with site.Params.seo.pinterestVerification }}
+<meta name="p:domain_verify" content="{{ . }}">
+{{- end }}
+
+{{- with .OutputFormats.Get "RSS" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+{{- end }}
+
+<link rel="preload" as="font" type="font/woff2" href="{{ "fonts/plex-sans-400.woff2" | relURL }}" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="{{ "fonts/zilla-slab-700.woff2" | relURL }}" crossorigin>
+<link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+
+{{ partial "schema.html" . }}

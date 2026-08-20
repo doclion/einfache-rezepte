@@ -1,0 +1,22 @@
+{{- /*
+  Loest .Params.image zu einer verarbeitbaren Ressource auf.
+  Sucht in dieser Reihenfolge: Page-Bundle -> assets/ -> assets/ ohne fuehrenden Slash.
+  Gibt einen leeren String zurueck, wenn das Bild extern liegt oder nur unter static/.
+  Aufruf: {{ partial "bild-ressource.html" (dict "page" . "pfad" .Params.image) }}
+*/ -}}
+{{- $pfad := printf "%v" (default "" .pfad) -}}
+{{- $page := .page -}}
+{{- $res := "" -}}
+{{- if and $pfad (not (hasPrefix $pfad "http")) (not (hasPrefix $pfad "//")) (not (hasPrefix $pfad "data:")) -}}
+  {{- $ohne := strings.TrimPrefix "/" $pfad -}}
+  {{- with $page -}}
+    {{- with .Resources.GetMatch $ohne -}}{{- $res = . -}}{{- end -}}
+  {{- end -}}
+  {{- if not $res -}}
+    {{- with resources.Get $ohne -}}{{- $res = . -}}{{- end -}}
+  {{- end -}}
+  {{- if not $res -}}
+    {{- with resources.Get $pfad -}}{{- $res = . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $res -}}

@@ -1,0 +1,17 @@
+{{- /* Minuten als int -> "45 Min." oder "1 Std 15 Min." */ -}}
+{{- $m := int (default 0 .) -}}
+{{- $aus := "" -}}
+{{- if le $m 0 -}}
+  {{- $aus = "—" -}}
+{{- else if lt $m 60 -}}
+  {{- $aus = printf "%d Min." $m -}}
+{{- else -}}
+  {{- $std := div $m 60 -}}
+  {{- $rest := mod $m 60 -}}
+  {{- if eq $rest 0 -}}
+    {{- $aus = printf "%d Std." $std -}}
+  {{- else -}}
+    {{- $aus = printf "%d Std %d Min." $std $rest -}}
+  {{- end -}}
+{{- end -}}
+{{- return $aus -}}

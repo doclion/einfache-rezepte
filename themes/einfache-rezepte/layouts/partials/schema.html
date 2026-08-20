@@ -1,0 +1,113 @@
+{{- /*
+  Strukturierte Daten. Wichtigste Regeln:
+  - "Recipe" NUR auf Rezeptseiten, die tatsaechlich Zutaten und Zubereitung im
+    Frontmatter haben. Ohne recipeIngredient + recipeInstructions verwirft Google
+    das Markup ohnehin, und Recipe auf Impressum/Datenschutz ist Spam.
+  - Aufbau ueber dict + jsonify, damit Anfuehrungszeichen und Umlaute korrekt
+    escaped werden.
+*/ -}}
+{{- $s := site -}}
+{{- $autor := default "Redaktion" $s.Params.author -}}
+{{- $verlag := dict "@type" "Organization" "name" $s.Title "url" $s.BaseURL -}}
+{{- with $s.Params.logo -}}
+  {{- $verlag = merge $verlag (dict "logo" (dict "@type" "ImageObject" "url" (. | absURL))) -}}
+{{- end -}}
+
+{{- if .IsHome -}}
+  {{- $ws := dict
+        "@context" "https://schema.org"
+        "@type" "WebSite"
+        "name" $s.Title
+        "alternateName" (default $s.Title $s.Params.siteAltName)
+        "url" $s.BaseURL
+        "inLanguage" "de-DE"
+        "description" $s.Params.description
+        "publisher" $verlag
+        "potentialAction" (dict
+          "@type" "SearchAction"
+          "target" (dict "@type" "EntryPoint" "urlTemplate" (printf "%s?q={search_term_string}" $s.BaseURL))
+          "query-input" "required name=search_term_string")
+  -}}
+  <script type="application/ld+json">{{ $ws | jsonify | safeJS }}</script>
+
+{{- else if and (eq .Section "posts") .Params.ingredients .Params.instructions -}}
+  {{- $zutaten := slice -}}
+  {{- range partial "zutaten-daten.html" .Params.ingredients -}}
+    {{- $zutaten = $zutaten | append .text -}}
+  {{- end -}}
+
+  {{- $schritte := slice -}}
+  {{- range $i, $sch := .Params.instructions -}}
+    {{- $txt := "" -}}
+    {{- $titel := "" -}}
+    {{- if reflect.IsMap $sch -}}
+      {{- $txt = printf "%v" (default "" (index $sch "text")) -}}
+      {{- $titel = printf "%v" (default "" (index $sch "name")) -}}
+    {{- else -}}
+      {{- $txt = printf "%v" $sch -}}
+    {{- end -}}
+    {{- $st := dict "@type" "HowToStep" "text" $txt "url" (printf "%s#schritt-%d" $.Permalink (add $i 1)) -}}
+    {{- if $titel -}}{{- $st = merge $st (dict "name" $titel) -}}{{- end -}}
+    {{- $schritte = $schritte | append $st -}}
+  {{- end -}}
+
+  {{- $prep := partial "minuten.html" .Params.prepTime -}}
+  {{- $cook := partial "minuten.html" .Params.cookTime -}}
+  {{- $gesamt := add $prep $cook -}}
+
+  {{- $bild := partial "bild-url.html" (dict "page" . "pfad" .Params.image) -}}
+
+  {{- $r := dict
+        "@context" "https://schema.org"
+        "@type" "Recipe"
+        "name" .Title
+        "description" (partial "beschreibung.html" .)
+        "url" .Permalink
+        "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+        "inLanguage" "de-DE"
+        "datePublished" (.Date.Format "2006-01-02")
+        "dateModified" (.Lastmod.Format "2006-01-02")
+        "author" (dict "@type" "Person" "name" $autor)
+        "publisher" $verlag
+        "recipeIngredient" $zutaten
+        "recipeInstructions" $schritte
+  -}}
+  {{- with $bild -}}{{- $r = merge $r (dict "image" (slice .)) -}}{{- end -}}
+  {{- if gt $prep 0 -}}{{- $r = merge $r (dict "prepTime" (printf "PT%dM" $prep)) -}}{{- end -}}
+  {{- if gt $cook 0 -}}{{- $r = merge $r (dict "cookTime" (printf "PT%dM" $cook)) -}}{{- end -}}
+  {{- if gt $gesamt 0 -}}{{- $r = merge $r (dict "totalTime" (printf "PT%dM" $gesamt)) -}}{{- end -}}
+  {{- with .Params.servings -}}{{- $r = merge $r (dict "recipeYield" (printf "%v Portionen" .)) -}}{{- end -}}
+  {{- with .Params.categories -}}{{- $r = merge $r (dict "recipeCategory" (index . 0)) -}}{{- end -}}
+  {{- with .Params.cuisine -}}{{- $r = merge $r (dict "recipeCuisine" .) -}}{{- end -}}
+  {{- with .Params.tags -}}{{- $r = merge $r (dict "keywords" (delimit . ", ")) -}}{{- end -}}
+  {{- if .Params.calories -}}
+    {{- $n := dict "@type" "NutritionInformation" "servingSize" "1 Portion" "calories" (printf "%v kcal" .Params.calories) -}}
+    {{- with .Params.protein -}}{{- $n = merge $n (dict "proteinContent" (printf "%v g" .)) -}}{{- end -}}
+    {{- with .Params.fat -}}{{- $n = merge $n (dict "fatContent" (printf "%v g" .)) -}}{{- end -}}
+    {{- with .Params.carbs -}}{{- $n = merge $n (dict "carbohydrateContent" (printf "%v g" .)) -}}{{- end -}}
+    {{- $r = merge $r (dict "nutrition" $n) -}}
+  {{- end -}}
+  <script type="application/ld+json">{{ $r | jsonify | safeJS }}</script>
+
+{{- else if eq .Kind "page" -}}
+  {{- $wp := dict
+        "@context" "https://schema.org"
+        "@type" "WebPage"
+        "name" .Title
+        "url" .Permalink
+        "inLanguage" "de-DE"
+        "description" (partial "beschreibung.html" .)
+        "isPartOf" (dict "@type" "WebSite" "name" $s.Title "url" $s.BaseURL)
+  -}}
+  <script type="application/ld+json">{{ $wp | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- /* Breadcrumbs auf Rezeptseiten */ -}}
+{{- if eq .Section "posts" -}}
+  {{- $items := slice
+        (dict "@type" "ListItem" "position" 1 "name" "Start" "item" $s.BaseURL)
+        (dict "@type" "ListItem" "position" 2 "name" "Rezepte" "item" ("posts/" | absURL))
+        (dict "@type" "ListItem" "position" 3 "name" .Title "item" .Permalink)
+  -}}
+  <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items | jsonify | safeJS }}</script>
+{{- end -}}
