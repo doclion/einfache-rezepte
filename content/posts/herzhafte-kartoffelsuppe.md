@@ -1,12 +1,20 @@
 ---
 title: "Omas herzhafte Kartoffelsuppe – Ein Klassiker der deutschen Küche"
-date: 2026-03-18
-description: "Entdecke das Originalrezept für Kartoffelsuppe wie von Oma. Herzhaft, sättigend, preiswert – der perfekte Seelenwärmer für kalte Tage."
-slug: "herzhafte-kartoffelsuppe"
-tags: ['deutsche-kueche', 'suppen', 'eintopf', 'herbst', 'klassiker']
-categories: ['Suppen & Eintöpfe']
-image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["deutsche-kueche", "suppen", "eintopf", "herbst", "klassiker"]
+categories: "Suppen & Eintöpfe"
+description: "Entdecke das Originalrezept für Kartoffelsuppe wie von Oma. Herzhaft, sättigend, preiswert – der perfekte Seelenwärmer für kalte Tage."
+image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+slug: "herzhafte-kartoffelsuppe"
+prepTime: "15 Min."
+cookTime: "30 Min."
+servings: 4
+difficulty: "einfach"
+calories: 320
+protein: 12
+fat: 10
+carbs: 48
 ---
 
 Es gibt Gerichte, die schmecken nach Zuhause – und dazu gehört ganz klar eine **gute Kartoffelsuppe**. Mein Rezept ist inspiriert von der klassischen deutschen Küche, aber so einfach, dass es wirklich jeder hinkriegt.

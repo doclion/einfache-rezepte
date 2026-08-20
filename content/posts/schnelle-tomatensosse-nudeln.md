@@ -1,12 +1,20 @@
 ---
 title: "Schnelle Tomatensauce-Nudeln in 15 Minuten – Das perfekte Feierabendgericht"
-date: 2026-03-15
-description: "Lerne, wie du in nur 15 Minuten eine köstliche Tomatensauce mit Nudeln zauberst. Perfekt für stressige Tage – günstig, einfach und lecker."
-slug: "schnelle-tomatensosse-nudeln"
-tags: ['schnelle-rezepte', 'nudeln', 'vegetarisch', 'italienisch']
-categories: ['Hauptgerichte']
-image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["schnelle-rezepte", "nudeln", "vegetarisch", "italienisch"]
+categories: "Hauptgerichte"
+description: "Lerne, wie du in nur 15 Minuten eine köstliche Tomatensauce mit Nudeln zauberst. Perfekt für stressige Tage – günstig, einfach und lecker."
+image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80"
+slug: "schnelle-tomatensosse-nudeln"
+prepTime: "5 Min."
+cookTime: "10 Min."
+servings: 2
+difficulty: "einfach"
+calories: 380
+protein: 14
+fat: 16
+carbs: 48
 ---
 
 **Kennst du das?** Nach einem langen Arbeitstag hast du wenig Zeit, aber Hunger auf etwas Richtig Gutes. Genau dafür gibt es dieses einfache Nudelgericht – eines meiner Lieblings-Schnellrezepte aus der Kategorie [**schnelle Rezepte**](/tags/schnelle-rezepte/).

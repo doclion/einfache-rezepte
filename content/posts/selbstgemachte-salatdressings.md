@@ -1,12 +1,20 @@
 ---
 title: "Selbstgemachte Salatdressings – 3 Grundrezepte für den perfekten Salat"
-date: 2026-04-13
-description: "Selbstgemachtes Dressing ist gesünder, schmeckt besser und ist in 5 Minuten fertig. Lerne die 3 Grundrezepte: Vinaigrette, Joghurt-Dressing und Kräuter-Dressing."
-slug: "selbstgemachte-salatdressings"
-tags: ['gesund', 'salat', 'vegetarisch', 'vegan', 'basics', 'grundrezepte']
-categories: ['Salate & Bowls']
-image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["gesund", "salat", "vegetarisch", "vegan", "basics", "grundrezepte"]
+categories: "Salate & Bowls"
+description: "Selbstgemachtes Dressing ist gesünder, schmeckt besser und ist in 5 Minuten fertig. Lerne die 3 Grundrezepte: Vinaigrette, Joghurt-Dressing und Kräuter-Dressing."
+image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+slug: "selbstgemachte-salatdressings"
+prepTime: "5 Min."
+cookTime: "0 Min."
+servings: 4
+difficulty: "einfach"
+calories: 150
+protein: 3
+fat: 14
+carbs: 5
 ---
 
 Fertig-Dressings sind teuer, voller Zucker und Zusatzstoffe. Dabei ist ein **selbstgemachtes Salatdressing** in 3 Minuten gemixt und schmeckt zehnmal besser. Ich zeige dir meine drei Lieblings-Grundrezepte, die du unendlich variieren kannst.

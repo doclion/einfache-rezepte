@@ -1,12 +1,20 @@
 ---
 title: "Klassisches ungarisches Gulasch – Deftig, würzig, perfekt zum Vorkochen"
-date: 2026-03-24
-description: "So gelingt dir ein richtig gutes Gulasch – mit zartem Fleisch, reichhaltiger Sauce und dem unverwechselbaren Paprikaaroma. Der perfekte Sonntagsbraten."
-slug: "klassisches-ungarisches-gulasch"
-tags: ['deutsche-kueche', 'eintopf', 'fleisch', 'klassiker', 'vorkochen']
-categories: ['Suppen & Eintöpfe']
-image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["deutsche-kueche", "eintopf", "fleisch", "klassiker", "vorkochen"]
+categories: "Suppen & Eintöpfe"
+description: "So gelingt dir ein richtig gutes Gulasch – mit zartem Fleisch, reichhaltiger Sauce und dem unverwechselbaren Paprikaaroma. Der perfekte Sonntagsbraten."
+image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
+slug: "klassisches-ungarisches-gulasch"
+prepTime: "20 Min."
+cookTime: "120 Min."
+servings: 6
+difficulty: "mittel"
+calories: 450
+protein: 35
+fat: 22
+carbs: 15
 ---
 
 Ein **richtiges Gulasch** braucht Zeit – aber diese Zeit ist jede Minute wert. Das Fleisch wird butterzart, die Sauce bekommt eine samtige Tiefe, und der Duft zieht durch die ganze Wohnung. Mein Rezept orientiert sich an der ungarischen Tradition, ist aber für die deutsche Küche optimiert.

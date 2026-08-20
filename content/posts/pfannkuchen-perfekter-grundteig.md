@@ -1,11 +1,20 @@
 ---
 title: "Pfannkuchen – Der perfekte Grundteig für süße & herzhafte Varianten"
 date: 2026-08-20
-description: "Pfannkuchen** sind das ultimative Soulfood – dünn, goldbraun und perfekt für jede Tageszeit. Ein guter Grundteig ist die Basis für unendlich viele Var"
-slug: "pfannkuchen-perfekter-grundteig"
-tags: ['pfannkuchen', 'grundrezepte', 'basics', 'fruehstueck', 'schnelle-rezepte', 'süss']
-categories: ['Frühstück & Brunch']
 draft: false
+tags: ["pfannkuchen", "grundrezepte", "basics", "fruehstueck", "schnelle-rezepte", "süss"]
+categories: "Frühstück & Brunch"
+description: "Pfannkuchen** sind das ultimative Soulfood – dünn, goldbraun und perfekt für jede Tageszeit. Ein guter Grundteig ist die Basis für unendlich viele Var"
+image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80"
+slug: "pfannkuchen-perfekter-grundteig"
+prepTime: "5 Min."
+cookTime: "20 Min."
+servings: 4
+difficulty: "einfach"
+calories: 320
+protein: 12
+fat: 8
+carbs: 52
 ---
 **Pfannkuchen** sind das ultimative Soulfood – dünn, goldbraun und perfekt für jede Tageszeit. Ein guter Grundteig ist die Basis für unendlich viele Variationen, süß oder herzhaft. Ich zeige dir mein Rezept für den perfekten Pfannkuchenteig, der jedes Mal gelingt.
 

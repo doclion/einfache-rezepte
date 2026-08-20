@@ -1,11 +1,20 @@
 ---
 title: "Selbstgemachte Pizza vom Blech – Einfacher Teig, unendliche Beläge"
 date: 2026-08-20
-description: "Pizza vom Blech** ist die entspannte Art, italienisches Lebensgefühl nach Hause zu holen. Kein mühsames Ausrollen, keine Pizzasteine – einfach den Tei"
-slug: "selbstgemachte-pizza-vom-blech"
-tags: ['pizza', 'teig', 'italienisch', 'familie', 'backen', 'herzhaft']
-categories: ['Hauptgerichte']
 draft: false
+tags: ["pizza", "teig", "italienisch", "familie", "backen", "herzhaft"]
+categories: "Hauptgerichte"
+description: "Pizza vom Blech** ist die entspannte Art, italienisches Lebensgefühl nach Hause zu holen. Kein mühsames Ausrollen, keine Pizzasteine – einfach den Tei"
+image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80"
+slug: "selbstgemachte-pizza-vom-blech"
+prepTime: "20 Min."
+cookTime: "25 Min."
+servings: 4
+difficulty: "mittel"
+calories: 520
+protein: 25
+fat: 18
+carbs: 60
 ---
 **Pizza vom Blech** ist die entspannte Art, italienisches Lebensgefühl nach Hause zu holen. Kein mühsames Ausrollen, keine Pizzasteine – einfach den Teig aufs Blech drücken, belegen und genießen. Perfekt für den Pizzabäcker-Abend mit Freunden oder der Familie.
 

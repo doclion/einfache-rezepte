@@ -1,12 +1,20 @@
 ---
 title: "One-Pan Hähnchen mit Paprika – Aus einer Pfanne, wenig Abwasch, maximaler Geschmack"
-date: 2026-03-21
-description: "Hähnchen mit Paprika aus einer einzigen Pfanne – weniger spülen, mehr genießen. Das perfekte Rezept für alle, die unkompliziert gut essen wollen."
-slug: "one-pan-haehnchen-paprika"
-tags: ['schnelle-rezepte', 'haehnchen', 'einfach', 'one-pot']
-categories: ['Hauptgerichte']
-image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["schnelle-rezepte", "haehnchen", "einfach", "one-pot"]
+categories: "Hauptgerichte"
+description: "Hähnchen mit Paprika aus einer einzigen Pfanne – weniger spülen, mehr genießen. Das perfekte Rezept für alle, die unkompliziert gut essen wollen."
+image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=800&q=80"
+slug: "one-pan-haehnchen-paprika"
+prepTime: "10 Min."
+cookTime: "20 Min."
+servings: 2
+difficulty: "einfach"
+calories: 420
+protein: 35
+fat: 22
+carbs: 12
 ---
 
 One-Pot- und One-Pan-Rezepte haben die Küche im Sturm erobert – und das völlig zu Recht. Weniger Abwasch, weniger Stress, aber trotzdem maximaler Geschmack. Mein **One-Pan Hähnchen mit Paprika** ist der Beweis: In einer Pfanne, in 30 Minuten, mit Zutaten aus dem Supermarkt.

@@ -1,11 +1,20 @@
 ---
 title: "Kartoffelgratin – Cremig, einfach & der perfekte Beilagen-Klassiker"
 date: 2026-08-20
-description: "Ein **Kartoffelgratin** ist die Königin der Beilagen. Knusprig goldbraun, innen zart und cremig – diese Kombination macht ihn unwiderstehlich. Das Rez"
-slug: "kartoffelgratin-cremig-und-einfach"
-tags: ['kartoffeln', 'auflauf', 'beilagen', 'franzoesisch', 'cremig', 'familie', 'vegetarisch']
-categories: ['Hauptgerichte']
 draft: false
+tags: ["kartoffeln", "auflauf", "beilagen", "franzoesisch", "cremig", "familie", "vegetarisch"]
+categories: "Hauptgerichte"
+description: "Ein **Kartoffelgratin** ist die Königin der Beilagen. Knusprig goldbraun, innen zart und cremig – diese Kombination macht ihn unwiderstehlich. Das Rez"
+image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80"
+slug: "kartoffelgratin-cremig-und-einfach"
+prepTime: "15 Min."
+cookTime: "40 Min."
+servings: 4
+difficulty: "einfach"
+calories: 420
+protein: 14
+fat: 28
+carbs: 35
 ---
 Ein **Kartoffelgratin** ist die Königin der Beilagen. Knusprig goldbraun, innen zart und cremig – diese Kombination macht ihn unwiderstehlich. Das Rezept ist einfacher als du denkst: Kartoffeln in Scheiben, Sahne, Gewürze, ab in den Ofen. Das Ergebnis ist pures Comfort Food.
 

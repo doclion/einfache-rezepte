@@ -1,11 +1,20 @@
 ---
 title: "Gemüsepfanne mit Reis – Bunt, gesund & in 20 Minuten auf dem Tisch"
 date: 2026-08-20
-description: "Eine **Gemüsepfanne mit Reis** ist mein Go-to-Gericht für Tage, an es schnell, gesund und bunt sein muss. Alles, was der Kühlschrank hergibt, kommt in"
-slug: "gemuesepfanne-mit-reis"
-tags: ['gemuese', 'reis', 'vegetarisch', 'vegan', 'schnelle-rezepte', 'gesund', 'one-pot']
-categories: ['Hauptgerichte']
 draft: false
+tags: ["gemuese", "reis", "vegetarisch", "vegan", "schnelle-rezepte", "gesund", "one-pot"]
+categories: "Hauptgerichte"
+description: "Eine **Gemüsepfanne mit Reis** ist mein Go-to-Gericht für Tage, an es schnell, gesund und bunt sein muss. Alles, was der Kühlschrank hergibt, kommt in"
+image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+slug: "gemuesepfanne-mit-reis"
+prepTime: "10 Min."
+cookTime: "10 Min."
+servings: 2
+difficulty: "einfach"
+calories: 380
+protein: 12
+fat: 14
+carbs: 55
 ---
 Eine **Gemüsepfanne mit Reis** ist mein Go-to-Gericht für Tage, an es schnell, gesund und bunt sein muss. Alles, was der Kühlschrank hergibt, kommt in die Pfanne – gewürzt mit asiatischen oder mediterranen Aromen. Das Rezept ist eine perfekte Resteverwertung und in 20 Minuten fertig.
 

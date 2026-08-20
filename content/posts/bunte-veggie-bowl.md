@@ -1,12 +1,20 @@
 ---
 title: "Bunte Veggie-Bowl mit Quinoa und Avocado – Gesund essen, glücklich sein"
-date: 2026-03-27
-description: "Diese farbenfrohe Veggie-Bowl ist ein Fest für Auge und Gaumen. Gesund, vegan, voller Nährstoffe – und in 25 Minuten fertig. Dein neues Lieblings-Mittagessen!"
-slug: "bunte-veggie-bowl"
-tags: ['gesund', 'vegetarisch', 'vegan', 'bowls', 'salat']
-categories: ['Salate & Bowls']
-image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["gesund", "vegetarisch", "vegan", "bowls", "salat"]
+categories: "Salate & Bowls"
+description: "Diese farbenfrohe Veggie-Bowl ist ein Fest für Auge und Gaumen. Gesund, vegan, voller Nährstoffe – und in 25 Minuten fertig. Dein neues Lieblings-Mittagessen!"
+image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+slug: "bunte-veggie-bowl"
+prepTime: "15 Min."
+cookTime: "10 Min."
+servings: 2
+difficulty: "einfach"
+calories: 420
+protein: 15
+fat: 18
+carbs: 52
 ---
 
 Buddha Bowls oder Veggie Bowls sind der Inbegriff des **gesunden, ausgewogenen Essens** – und sie sind einfacher zuzubereiten, als du denkst. Das Prinzip: Eine Schüssel, viele Komponenten, alles frisch und bunt. Mein Rezept ist 100 % pflanzlich und voller Proteine.

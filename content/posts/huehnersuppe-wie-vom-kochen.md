@@ -1,12 +1,20 @@
 ---
 title: "Hühnersuppe wie vom Koch – Die beste Erkältungssuppe der Welt"
-date: 2026-04-04
-description: "Echte Hühnersuppe ist kein Fertigprodukt – sie ist Seelenfutter, Medizin und Genuss in einem. So kochst du sie von Grund auf selbst."
-slug: "huehnersuppe-wie-vom-kochen"
-tags: ['suppen', 'huehnchen', 'klassiker', 'gesund', 'erkaltung', 'eintopf']
-categories: ['Suppen & Eintöpfe']
-image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["suppen", "huehnchen", "klassiker", "gesund", "erkaltung", "eintopf"]
+categories: "Suppen & Eintöpfe"
+description: "Echte Hühnersuppe ist kein Fertigprodukt – sie ist Seelenfutter, Medizin und Genuss in einem. So kochst du sie von Grund auf selbst."
+image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+slug: "huehnersuppe-wie-vom-kochen"
+prepTime: "20 Min."
+cookTime: "60 Min."
+servings: 4
+difficulty: "mittel"
+calories: 280
+protein: 25
+fat: 8
+carbs: 22
 ---
 
 Wenn es draußen stürmt und drinnen die Nase läuft, hilft nur eins: eine **dampfende Schüssel Hühnersuppe**. Nicht die aus der Dose, sondern eine, die stundenlang vor sich hin köchelt, deren Brühe golden leuchtet und nach Wohlbefinden duftet.

@@ -1,11 +1,20 @@
 ---
 title: "Rührei mit verschiedenen Variationen – Von klassisch bis luxuriös"
 date: 2026-08-20
-description: "Rührei** ist die Königsdisziplin des Frühstücks – simpel in der Idee, aber raffiniert in der Umsetzung. Mit meinen Variationen wird aus dem alltäglich"
-slug: "ruehrei-mit-verschiedenen-variationen"
-tags: ['fruehstueck', 'eier', 'schnelle-rezepte', 'basics', 'grundrezepte']
-categories: ['Frühstück & Brunch']
 draft: false
+tags: ["fruehstueck", "eier", "schnelle-rezepte", "basics", "grundrezepte"]
+categories: "Frühstück & Brunch"
+description: "Rührei** ist die Königsdisziplin des Frühstücks – simpel in der Idee, aber raffiniert in der Umsetzung. Mit meinen Variationen wird aus dem alltäglich"
+image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80"
+slug: "ruehrei-mit-verschiedenen-variationen"
+prepTime: "5 Min."
+cookTime: "10 Min."
+servings: 2
+difficulty: "einfach"
+calories: 280
+protein: 22
+fat: 20
+carbs: 2
 ---
 **Rührei** ist die Königsdisziplin des Frühstücks – simpel in der Idee, aber raffiniert in der Umsetzung. Mit meinen Variationen wird aus dem alltäglichen Eiergericht ein Erlebnis. Vom klassischen Rührei bis zur Luxus-Version mit Trüffel – hier ist für jeden Geschmack etwas dabei.
 

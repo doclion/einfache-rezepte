@@ -1,11 +1,20 @@
 ---
 title: "Linsensuppe – Einfach, günstig & der beste Seelenwärmer"
 date: 2026-08-20
-description: "Linsensuppe** ist der Klassiker unter den günstigen Gerichten. Sie kostet kaum etwas, ist schnell zubereitet und schmeckt der ganzen Familie. Ob mit o"
-slug: "linsensuppe-einfach-und-guenstig"
-tags: ['suppen', 'eintopf', 'vegan', 'guenstig', 'deutsche-kueche', 'vorkochen']
-categories: ['Suppen & Eintöpfe']
 draft: false
+tags: ["suppen", "eintopf", "vegan", "guenstig", "deutsche-kueche", "vorkochen"]
+categories: "Suppen & Eintöpfe"
+description: "Linsensuppe** ist der Klassiker unter den günstigen Gerichten. Sie kostet kaum etwas, ist schnell zubereitet und schmeckt der ganzen Familie. Ob mit o"
+image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80"
+slug: "linsensuppe-einfach-und-guenstig"
+prepTime: "10 Min."
+cookTime: "30 Min."
+servings: 4
+difficulty: "einfach"
+calories: 350
+protein: 22
+fat: 6
+carbs: 55
 ---
 **Linsensuppe** ist der Klassiker unter den günstigen Gerichten. Sie kostet kaum etwas, ist schnell zubereitet und schmeckt der ganzen Familie. Ob mit oder ohne Fleisch – dieses Rezept ist die perfekte Basis, die du immer wieder kochen wirst.
 

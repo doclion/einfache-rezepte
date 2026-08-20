@@ -1,18 +1,17 @@
 {{- /* Beschreibung: Frontmatter -> Zusammenfassung -> Seitenbeschreibung. */ -}}
 {{- $t := "" -}}
-{{- with .Description -}}
-  {{- $t = . -}}
-{{- else -}}
+{{- $t = .Description | default "" | string -}}
+{{- if not $t -}}
   {{- with .Params.summary -}}
-    {{- $t = . -}}
+    {{- $t = . | string -}}
   {{- else -}}
     {{- if .IsPage -}}
-      {{- $t = .Summary | plainify | truncate 155 -}}
+      {{- $t = .Summary | plainify | string -}}
     {{- else -}}
-      {{- $t = site.Params.description -}}
+      {{- $t = site.Params.description | string -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- $t = $t | string -}}
+{{- $t = $t | truncate 155 -}}
 {{- $t = replaceRE `\s+` " " $t -}}
 {{- return $t -}}

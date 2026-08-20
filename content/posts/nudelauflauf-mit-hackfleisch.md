@@ -1,11 +1,20 @@
 ---
 title: "Nudelauflauf mit Hackfleisch – Der Ofenklassiker für die ganze Familie"
 date: 2026-08-20
-description: "Ein **Nudelauflauf mit Hackfleisch** ist das perfekte Gericht, wenn du viele hungrige Mäuler stopfen oder Reste verwerten musst. Schmackhaft, sättigen"
-slug: "nudelauflauf-mit-hackfleisch"
-tags: ['auflauf', 'nudeln', 'hackfleisch', 'familie', 'schnelle-rezepte', 'herzhaft']
-categories: ['Hauptgerichte']
 draft: false
+tags: ["auflauf", "nudeln", "hackfleisch", "familie", "schnelle-rezepte", "herzhaft"]
+categories: "Hauptgerichte"
+description: "Ein **Nudelauflauf mit Hackfleisch** ist das perfekte Gericht, wenn du viele hungrige Mäuler stopfen oder Reste verwerten musst. Schmackhaft, sättigen"
+image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80"
+slug: "nudelauflauf-mit-hackfleisch"
+prepTime: "15 Min."
+cookTime: "30 Min."
+servings: 4
+difficulty: "einfach"
+calories: 580
+protein: 30
+fat: 25
+carbs: 55
 ---
 Ein **Nudelauflauf mit Hackfleisch** ist das perfekte Gericht, wenn du viele hungrige Mäuler stopfen oder Reste verwerten musst. Schmackhaft, sättigend und super variierbar – dieses Rezept wird dein neuer Lieblingsauflauf.
 

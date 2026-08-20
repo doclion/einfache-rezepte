@@ -1,12 +1,20 @@
 ---
 title: "Käsekuchen ohne Backen – Cremig, kaltgestellt, einfach perfekt"
-date: 2026-04-10
-description: "Kein Backofen nötig! Dieser No-Bake-Käsekuchen ist unglaublich cremig, schnell zubereitet und schmeckt wie ein Traum. Der ideale Sommerkuchen."
-slug: "kaesekuchen-ohne-backen"
-tags: ['backen', 'dessert', 'kuchen', 'schnelle-rezepte', 'ohne-backen', 'sommer']
-categories: ['Backrezepte']
-image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["backen", "dessert", "kuchen", "schnelle-rezepte", "ohne-backen", "sommer"]
+categories: "Backrezepte"
+description: "Kein Backofen nötig! Dieser No-Bake-Käsekuchen ist unglaublich cremig, schnell zubereitet und schmeckt wie ein Traum. Der ideale Sommerkuchen."
+image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80"
+slug: "kaesekuchen-ohne-backen"
+prepTime: "20 Min."
+cookTime: "0 Min."
+servings: 8
+difficulty: "einfach"
+calories: 380
+protein: 12
+fat: 25
+carbs: 32
 ---
 
 Manchmal hat man Lust auf Käsekuchen, aber nicht auf die ganze Backerei. An heißen Sommertagen ist der Backofen der letzte Ort, an dem man sein will. Und genau hier kommt mein **No-Bake-Käsekuchen** ins Spiel: Kein Backen, kein Schwitzen, jederzeit perfekt.

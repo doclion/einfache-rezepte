@@ -1,11 +1,20 @@
 ---
 title: "Griechischer Bauernsalat – So gelingt der authentische Horiatiki"
 date: 2026-08-20
-description: "Der **griechische Bauernsalat** (Horiatiki) ist der Inbegriff der mediterranen Küche. Einfach, ehrlich und voller sonniger Aromen. Mit diesem Rezept h"
-slug: "griechischer-bauernsalat"
-tags: ['salat', 'griechisch', 'vegetarisch', 'mediterran', 'schnelle-rezepte', 'sommer']
-categories: ['Salate & Bowls']
 draft: false
+tags: ["salat", "griechisch", "vegetarisch", "mediterran", "schnelle-rezepte", "sommer"]
+categories: "Salate & Bowls"
+description: "Der **griechische Bauernsalat** (Horiatiki) ist der Inbegriff der mediterranen Küche. Einfach, ehrlich und voller sonniger Aromen. Mit diesem Rezept h"
+image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+slug: "griechischer-bauernsalat"
+prepTime: "15 Min."
+cookTime: "0 Min."
+servings: 2
+difficulty: "einfach"
+calories: 320
+protein: 12
+fat: 22
+carbs: 18
 ---
 Der **griechische Bauernsalat** (Horiatiki) ist der Inbegriff der mediterranen Küche. Einfach, ehrlich und voller sonniger Aromen. Mit diesem Rezept holst du dir den Geschmack Griechenlands auf den Teller – ganz ohne Flugreise.
 

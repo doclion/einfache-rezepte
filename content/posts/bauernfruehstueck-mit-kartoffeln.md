@@ -1,11 +1,20 @@
 ---
 title: "Bauernfrühstück mit Kartoffeln – Herzhaft, sättigend & perfekt fürs Wochenende"
 date: 2026-08-20
-description: "Ein richtiges Bauernfrühstück ist der beste Start in einen gemütlichen Tag. Mit knusprigen Kartoffeln, cremigen Eiern und herzhaften Zutaten ist es ei"
-slug: "bauernfruehstueck-mit-kartoffeln"
-tags: ['fruehstueck', 'deutsche-kueche', 'kartoffeln', 'herzhaft', 'schnelle-rezepte']
-categories: ['Frühstück & Brunch']
 draft: false
+tags: ["fruehstueck", "deutsche-kueche", "kartoffeln", "herzhaft", "schnelle-rezepte"]
+categories: "Frühstück & Brunch"
+description: "Ein richtiges Bauernfrühstück ist der beste Start in einen gemütlichen Tag. Mit knusprigen Kartoffeln, cremigen Eiern und herzhaften Zutaten ist es ei"
+image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80"
+slug: "bauernfruehstueck-mit-kartoffeln"
+prepTime: "10 Min."
+cookTime: "15 Min."
+servings: 2
+difficulty: "einfach"
+calories: 380
+protein: 22
+fat: 18
+carbs: 30
 ---
 Ein richtiges Bauernfrühstück ist der beste Start in einen gemütlichen Tag. Mit knusprigen Kartoffeln, cremigen Eiern und herzhaften Zutaten ist es ein **klassisches Wohlfühlessen**, das satt und glücklich macht. Das Beste daran: Es kommt mit wenigen, günstigen Zutaten aus und steht in unter 30 Minuten auf dem Tisch.
 

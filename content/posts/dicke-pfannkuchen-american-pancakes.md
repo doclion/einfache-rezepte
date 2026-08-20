@@ -1,12 +1,20 @@
 ---
 title: "Fluffige American Pancakes – Dicke Pfannkuchen wie aus dem Diner"
-date: 2026-04-07
-description: "Diese American Pancakes sind der perfekte Start in den Tag. Fluffig, goldbraun, mit Ahornsirup – und das Rezept gelingt garantiert, auch ohne Buttermilch."
-slug: "dicke-pfannkuchen-american-pancakes"
-tags: ['backen', 'frühstück', 'schnelle-rezepte', 'süß', 'brunch']
-categories: ['Backrezepte']
-image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["backen", "frühstück", "schnelle-rezepte", "süß", "brunch"]
+categories: "Backrezepte"
+description: "Diese American Pancakes sind der perfekte Start in den Tag. Fluffig, goldbraun, mit Ahornsirup – und das Rezept gelingt garantiert, auch ohne Buttermilch."
+image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80"
+slug: "dicke-pfannkuchen-american-pancakes"
+prepTime: "10 Min."
+cookTime: "15 Min."
+servings: 4
+difficulty: "einfach"
+calories: 350
+protein: 10
+fat: 15
+carbs: 45
 ---
 
 **American Pancakes** – diese fluffigen, dicken Pfannkuchen mit goldenem Rand – sind der Inbegriff eines perfekten Wochenendfrühstücks. Und das Beste: Sie sind einfacher als dünne deutsche Pfannkuchen, weil sie praktisch nie schiefgehen können.

@@ -1,11 +1,20 @@
 ---
 title: "Hähnchen-Curry mit Reis – Einfach, cremig & voller Aroma"
 date: 2026-08-20
-description: "Ein gutes **Hähnchen-Curry mit Reis** ist wie eine Umarmung für den Gaumen – cremig, würzig und wohltuend. Dieses One-Pot-Rezept ist perfekt für stres"
-slug: "haehnchen-curry-mit-reis"
-tags: ['curry', 'haehnchen', 'reis', 'exotisch', 'schnelle-rezepte', 'familie']
-categories: ['Hauptgerichte']
 draft: false
+tags: ["curry", "haehnchen", "reis", "exotisch", "schnelle-rezepte", "familie"]
+categories: "Hauptgerichte"
+description: "Ein gutes **Hähnchen-Curry mit Reis** ist wie eine Umarmung für den Gaumen – cremig, würzig und wohltuend. Dieses One-Pot-Rezept ist perfekt für stres"
+image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=800&q=80"
+slug: "haehnchen-curry-mit-reis"
+prepTime: "15 Min."
+cookTime: "25 Min."
+servings: 4
+difficulty: "mittel"
+calories: 520
+protein: 35
+fat: 18
+carbs: 55
 ---
 Ein gutes **Hähnchen-Curry mit Reis** ist wie eine Umarmung für den Gaumen – cremig, würzig und wohltuend. Dieses One-Pot-Rezept ist perfekt für stressige Wochentage, denn es ist schnell zubereitet, macht kaum Abwasch und schmeckt besser als jedes Curry aus dem Imbiss.
 

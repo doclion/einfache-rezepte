@@ -1,12 +1,20 @@
 ---
 title: "Klassischer Apfelstrudel wie vom Konditor – Saftig, knusprig, unwiderstehlich"
-date: 2026-04-01
-description: "Apfelstrudel mit Blätterteig ist einfacher als gedacht. Mit meiner Schritt-für-Schritt-Anleitung gelingt dir ein Strudel, der nach Omas Rezept schmeckt."
-slug: "klassischer-apfelstrudel"
-tags: ['backen', 'dessert', 'klassiker', 'apfel', 'sonntagskuchen']
-categories: ['Backrezepte']
-image: "https://images.unsplash.com/photo-1558932120-4839d2d79ccf?w=800&q=80"
+date: 2026-08-20
 draft: false
+tags: ["backen", "dessert", "klassiker", "apfel", "sonntagskuchen"]
+categories: "Backrezepte"
+description: "Apfelstrudel mit Blätterteig ist einfacher als gedacht. Mit meiner Schritt-für-Schritt-Anleitung gelingt dir ein Strudel, der nach Omas Rezept schmeckt."
+image: "https://images.unsplash.com/photo-1558932120-4839d2d79ccf?w=800&q=80"
+slug: "klassischer-apfelstrudel"
+prepTime: "20 Min."
+cookTime: "35 Min."
+servings: 8
+difficulty: "mittel"
+calories: 320
+protein: 5
+fat: 15
+carbs: 45
 ---
 
 Ein **frischer, warm servierter Apfelstrudel** ist eines der großen Glücke der Backkunst. Die knusprige Hülle, das saftige, zimtig-duftende Apfelfüllung – und dazu eine Kugel Vanilleeis oder ein Klecks Sahne. Mein Rezept verwendet fertigen Blätterteig, damit es auch an normalen Tagen machbar ist.
