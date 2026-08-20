@@ -167,6 +167,7 @@ body {
   min-height: 100vh;
 }
 img, svg, video { max-width: 100%; height: auto; display: block; }
+[hidden] { display: none !important; }
 a { color: var(--emaille-2); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 a:hover { color: var(--emaille); }
 button, input, select { font: inherit; color: inherit; }

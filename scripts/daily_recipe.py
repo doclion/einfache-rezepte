@@ -103,6 +103,14 @@ categories: "{category}"
 description: "{recipe['desc']}"
 image: ""
 slug: {recipe['slug']}
+prepTime: "15 Min."
+cookTime: "25 Min."
+servings: 4
+difficulty: "einfach"
+calories: {recipe.get('calories', 450)}
+protein: {recipe.get('protein', 20)}
+fat: {recipe.get('fat', 15)}
+carbs: {recipe.get('carbs', 50)}
 keywords: [{keywords}]
 ---
 
