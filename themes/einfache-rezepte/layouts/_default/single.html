@@ -6,10 +6,9 @@
         <div class="post-meta">
             <span>📅 <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time></span>
             {{ with .Params.categories }}
-            <span>📂 <a href="{{ "/categories/" | relLangURL }}{{ index . 0 | urlize }}">{{ index . 0 }}</a></span>
+            <span>📂 <a href="{{ "/categories/" | relLangURL }}{{ (index . 0) | urlize }}">{{ index . 0 }}</a></span>
             {{ end }}
             <span>⏱️ {{ .ReadingTime }} Min. Lesezeit</span>
-            {{ if .Params.cookTime }}<span>👨‍🍳 {{ .Params.cookTime }} Zubereitung{{ end }}</span>
         </div>
 
         {{ if .Params.image }}
@@ -39,7 +38,7 @@
         <div class="info-item">
             <div class="icon">🔥</div>
             <div class="label">Kalorien</div>
-            <div class="value">{{ if .Params.calories }}{{ .Params.calories }}{{ else }}—{{ end }}</div>
+            <div class="value">{{ if .Params.calories }}{{ .Params.calories }} kcal{{ else }}—{{ end }}</div>
         </div>
     </div>
 
@@ -55,15 +54,19 @@
                     <span id="serving-count">2</span>
                     <button onclick="adjustServings(1)">+</button>
                 </div>
-                <ul class="ingredients-list">
+                <ul class="ingredients-list" id="ingredients-list">
                     {{ $content := .RawContent }}
+                    {{ $inSection := false }}
                     {{ $inIngredients := false }}
-                    {{ range split .RawContent "\n" }}
-                        {{ if or (hasPrefix . "## Zutaten") (hasPrefix . "### Zutaten") }}{{ $inIngredients = true }}{{ else if hasPrefix . "## " }}{{ $inIngredients = false }}{{ end }}
+                    {{ range (split .RawContent "\n") }}
+                        {{ if or (hasPrefix . "## Zutaten") (hasPrefix . "### Zutaten") (hasPrefix . "## 📝 Zutaten") }}{{ $inIngredients = true }}{{ end }}
                         {{ if $inIngredients }}
-                            {{ if hasPrefix . "- " }}
-                            <li>{{ strings.TrimPrefix "- " . }}</li>
-                            {{ end }}
+                            {{ if hasPrefix . "| " }}
+                                {{ $parts := split (strings.TrimPrefix "| " .) " | " }}
+                                {{ if ge (len $parts) 2 }}
+                                <li data-base="{{ index $parts 0 }}" data-unit>{{ strings.TrimPrefix "| " . }}</li>
+                                {{ end }}
+                            {{ else if hasPrefix . "## " }}{{ $inIngredients = false }}{{ end }}
                         {{ end }}
                     {{ end }}
                 </ul>
@@ -72,12 +75,10 @@
             <div class="nutrition-card">
                 <h3>📊 Nährwerte pro Portion</h3>
                 <div class="nutrition-grid">
-                    <div class="nutrient"><span class="name">Kalorien</span><span class="value">{{ if .Params.calories }}{{ .Params.calories }}{{ else }}—{{ end }}</span></div>
-                    <div class="nutrient"><span class="name">Eiweiß</span><span class="value">{{ if .Params.protein }}{{ .Params.protein }}{{ else }}—{{ end }}</span></div>
-                    <div class="nutrient"><span class="name">Fett</span><span class="value">{{ if .Params.fat }}{{ .Params.fat }}{{ else }}—{{ end }}</span></div>
-                    <div class="nutrient"><span class="name">Kohlenhydrate</span><span class="value">{{ if .Params.carbs }}{{ .Params.carbs }}{{ else }}—{{ end }}</span></div>
-                    <div class="nutrient"><span class="name">Ballaststoffe</span><span class="value">{{ if .Params.fiber }}{{ .Params.fiber }}{{ else }}—{{ end }}</span></div>
-                    <div class="nutrient"><span class="name">Zucker</span><span class="value">{{ if .Params.sugar }}{{ .Params.sugar }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Kalorien</span><span class="value">{{ if .Params.calories }}{{ .Params.calories }} kcal{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Eiweiß</span><span class="value">{{ if .Params.protein }}{{ .Params.protein }} g{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Fett</span><span class="value">{{ if .Params.fat }}{{ .Params.fat }} g{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Kohlenhydrate</span><span class="value">{{ if .Params.carbs }}{{ .Params.carbs }} g{{ else }}—{{ end }}</span></div>
                 </div>
             </div>
         </aside>
@@ -103,25 +104,36 @@
     </div>
     {{ end }}
 
-    <!-- Related posts -->
-    {{ $related := .Site.RegularPages.Related . | first 3 }}
-    {{ with $related }}
+    <!-- Related posts — NUR aus posts section -->
+    {{ $related := where (where .Site.RegularPages "Section" "posts") "Permalink" "ne" .Permalink }}
+    {{ $related := $related.ByDate.Reverse | first 3 }}
+    {{ if gt (len $related) 0 }}
     <section class="related-posts">
         <h2>👩‍🍳 Das könnte dir auch gefallen</h2>
         <div class="post-grid">
-            {{ range . }}
+            {{ range $related }}
             <article class="post-card">
-                {{ if .Params.image }}
                 <div class="card-image">
-                    <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+                    <div class="card-image-placeholder">
+                        {{ $emoji := "🍳" }}
+                        {{ range first 5 .Params.tags }}
+                            {{ if eq . "nudeln" }}{{ $emoji = "🍝" }}{{ end }}
+                            {{ if eq . "salat" }}{{ $emoji = "🥗" }}{{ end }}
+                            {{ if eq . "suppen" }}{{ $emoji = "🥣" }}{{ end }}
+                            {{ if eq . "backen" }}{{ $emoji = "🥐" }}{{ end }}
+                            {{ if eq . "dessert" }}{{ $emoji = "🍰" }}{{ end }}
+                            {{ if eq . "haehnchen" }}{{ $emoji = "🍗" }}{{ end }}
+                            {{ if eq . "pizza" }}{{ $emoji = "🍕" }}{{ end }}
+                            {{ if eq . "kuchen" }}{{ $emoji = "🎂" }}{{ end }}
+                            {{ if eq . "vegan" }}{{ $emoji = "🥬" }}{{ end }}
+                        {{ end }}
+                        <span class="emoji">{{ $emoji }}</span>
+                    </div>
                 </div>
-                {{ end }}
                 <div class="card-content">
                     <div class="card-meta">
                         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
-                        {{ with .Params.categories }}
-                        <span class="card-category">{{ index . 0 }}</span>
-                        {{ end }}
+                        {{ with .Params.categories }}<span class="card-category">{{ index . 0 }}</span>{{ end }}
                     </div>
                     <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
                     <p>{{ .Summary | plainify | truncate 100 }}</p>
@@ -134,6 +146,7 @@
     {{ end }}
 
     <!-- Navigation -->
+    {{ if or (.PrevInSection) (.NextInSection) }}
     <nav class="post-nav">
         {{ with .PrevInSection }}
         <a href="{{ .RelPermalink }}" class="prev">← {{ .Title }}</a>
@@ -142,10 +155,11 @@
         <a href="{{ .RelPermalink }}" class="next">{{ .Title }} →</a>
         {{ end }}
     </nav>
+    {{ end }}
 </article>
 
 <script>
-let currentServings = {{ if .Params.servings }}{{ .Params.servings }}{{ else }}2{{ end }};
+let currentServings = 2;
 const baseServings = currentServings;
 
 function adjustServings(delta) {
@@ -162,7 +176,7 @@ function adjustServings(delta) {
                 const newVal = Math.round(val * currentServings / baseServings * 10) / 10;
                 const unit = match[2] || '';
                 const rest = text.substring(match[0].length);
-                item.innerHTML = newVal.toString().replace('.', ',') + ' ' + unit + ' ' + rest;
+                item.textContent = newVal.toString().replace('.', ',') + ' ' + unit + ' ' + rest;
             }
         }
     });
