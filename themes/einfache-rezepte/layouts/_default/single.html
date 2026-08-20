@@ -1,0 +1,72 @@
+{{ define "main" }}
+<article class="single-post">
+    <header class="post-header">
+        <p class="breadcrumbs"><a href="{{ "" | absURL }}">Start</a> / <a href="{{ "posts/" | absURL }}">Rezepte</a> / {{ .Title }}</p>
+        <h1>{{ .Title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">Veröffentlicht: {{ .Date.Format "02.01.2006" }}</time>
+            {{ with .Params.categories }}
+            <span> | Kategorie: <a href="{{ "/categories/" | relLangURL }}{{ index . 0 | urlize }}">{{ index . 0 }}</a></span>
+            {{ end }}
+            <span> | Lesezeit: {{ .ReadingTime }} Min.</span>
+        </div>
+        {{ if .Params.image }}
+        <div class="post-image">
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+    </header>
+
+    <div class="post-content">
+        {{ .Content }}
+    </div>
+
+    <!-- Affiliate notice -->
+    <div class="affiliate-notice">
+        <p>🔗 {{ $.Site.Params.affiliateText }}</p>
+    </div>
+
+    <!-- Tags -->
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        <h3>Schlagwörter:</h3>
+        {{ range . }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Related posts -->
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ with $related }}
+    <section class="related-posts">
+        <h2>Das könnte dir auch gefallen</h2>
+        <div class="post-grid">
+            {{ range . }}
+            <article class="post-card mini">
+                {{ if .Params.image }}
+                <div class="card-image">
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+                </div>
+                {{ end }}
+                <div class="card-content">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    <p>{{ .Summary | plainify | truncate 100 }}</p>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+
+    <!-- Navigation -->
+    <nav class="post-nav">
+        {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="prev">← {{ .Title }}</a>
+        {{ end }}
+        {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="next">{{ .Title }} →</a>
+        {{ end }}
+    </nav>
+</article>
+{{ end }}

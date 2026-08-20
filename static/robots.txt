@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://einfache-rezepte.de/sitemap.xml

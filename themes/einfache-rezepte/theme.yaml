@@ -1,0 +1,16 @@
+name: Einfache Rezepte
+license: MIT
+licenselink: https://mit-license.org
+description: Dark, clean Blog-Theme für einfache Rezepte - Deutsch
+homepage: https://einfache-rezepte.de
+version: 1.0.0
+tags:
+  - blog
+  - recipes
+  - german
+  - dark
+features:
+  - blog
+  - seo
+  - sitemap
+  - german

@@ -1,0 +1,55 @@
+baseURL: "https://einfache-rezepte.de/"
+languageCode: "de-de"
+title: "Einfache Rezepte - Leckere Gerichte für jeden Tag"
+theme: "einfache-rezepte"
+defaultContentLanguage: "de"
+hasCJKLanguage: false
+permalinks:
+  posts: "/:slug/"
+taxonomies:
+  tags: "tags"
+  categories: "categories"
+
+# SEO
+enableRobotsTXT: true
+canonifyURLs: true
+
+# Sitemap
+sitemap:
+  changefreq: "weekly"
+  filename: "sitemap.xml"
+  priority: 0.5
+
+# Output formats
+outputs:
+  home: ["HTML", "RSS"]
+  page: ["HTML"]
+  section: ["HTML", "RSS"]
+
+# Markdown
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+# Params
+params:
+  description: "Einfache Rezepte für jeden Tag - Von schnellen Gerichten über gesunde Optionen bis zu Backrezepten. Schritt-für-Schritt Anleitungen."
+  author: "KüchenRat"
+  keywords: "Rezepte, einfache Rezepte, kochen, backen, deutsche Küche, schnelle Gerichte"
+  mainSections: ["posts"]
+  dateFormat: "02.01.2006"
+  language: "de"
+  # Affiliate config
+  affiliateText: "Dieser Beitrag enthält Affiliate-Links. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen."
+  amazonTag: "einfach-rezepte-21"
+  # Social
+  social:
+    - name: "GitHub"
+      url: "https://github.com/example/einfache-rezepte"
+  # Contact for imprint
+  contact:
+    name: "Max Mustermann"
+    address: "Musterstraße 1, 90762 Fürth, Deutschland"
+    email: "kontakt@einfache-rezepte.de"
+    phone: "+49 911 123456789"

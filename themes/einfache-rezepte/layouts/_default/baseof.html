@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="{{ $.Site.LanguageCode | default "de" }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <title>{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }} | {{ $.Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ $.Site.Params.description }}{{ end }}{{ end }}">
+    
+    {{ with $.Site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
+    <meta name="author" content="{{ $.Site.Params.author }}">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="{{ $.Site.Title }}">
+    <meta property="og:locale" content="de_DE">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    
+    <!-- RSS -->
+    {{ with .OutputFormats.Get "RSS" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
+    <link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}">
+    {{ end }}
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="{{ "sitemap.xml" | absURL }}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ "css/style.css" | absURL }}">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{{ if .IsHome }}WebSite{{ else }}Article{{ end }}",
+        "name": "{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}",
+        "url": "{{ .Permalink }}",
+        "description": "{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}",
+        "inLanguage": "de-DE"
+    }
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="{{ "" | absURL }}" class="site-logo">🍳 {{ $.Site.Title }}</a>
+            <div class="nav-links">
+                <a href="{{ "" | absURL }}">Start</a>
+                <a href="{{ "posts/" | absURL }}">Rezepte</a>
+                <a href="{{ "ueber-uns/" | absURL }}">Über uns</a>
+                <a href="{{ "impressum/" | absURL }}">Impressum</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>🍳 Einfache Rezepte</h3>
+                <p>Leckere, einfache Gerichte für jeden Tag. Von klassisch bis modern – wir zeigen dir, wie's geht.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Rechtliches</h3>
+                <ul>
+                    <li><a href="{{ "impressum/" | absURL }}">Impressum</a></li>
+                    <li><a href="{{ "datenschutz/" | absURL }}">Datenschutz</a></li>
+                    <li><a href="{{ "ueber-uns/" | absURL }}">Über uns</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Beliebte Kategorien</h3>
+                <ul>
+                    <li><a href="{{ "tags/schnelle-rezepte/" | absURL }}">Schnelle Rezepte</a></li>
+                    <li><a href="{{ "tags/gesund/" | absURL }}">Gesunde Rezepte</a></li>
+                    <li><a href="{{ "tags/backen/" | absURL }}">Backrezepte</a></li>
+                    <li><a href="{{ "tags/deutsche-kueche/" | absURL }}">Deutsche Küche</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ now.Format "2006" }} {{ $.Site.Title }}. Alle Rechte vorbehalten.</p>
+            <p class="affiliate-notice">* Alle Preise inkl. MwSt., ggf. zzgl. Versand. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.</p>
+        </div>
+    </footer>
+</body>
+</html>

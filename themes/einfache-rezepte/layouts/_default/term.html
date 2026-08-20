@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="list-page">
+    <h1>🏷️ Schlagwort: {{ .Title }}</h1>
+    <div class="post-grid">
+        {{ range .Pages }}
+        <article class="post-card">
+            {{ if .Params.image }}
+            <div class="card-image">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+            </div>
+            {{ end }}
+            <div class="card-content">
+                <div class="card-meta">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
+                </div>
+                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                <p>{{ .Summary | plainify | truncate 120 }}</p>
+                <a href="{{ .RelPermalink }}" class="read-more">Weiterlesen →</a>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
