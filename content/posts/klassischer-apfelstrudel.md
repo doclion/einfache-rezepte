@@ -64,3 +64,9 @@ Nach dem Backen kurz abkühlen lassen, dann mit Puderzucker bestäuben. Am beste
 - **Birnenstrudel:** Birnen statt Äpfel verwenden, dazu ein Hauch Kardamom.
 
 👉 Noch mehr [**Backrezepte**](/categories/backrezepte/) findest du in unserer Sammlung – von Kuchen bis Plätzchen!
+
+**🍳 Empfohlene Produkte**
+
+- [🥇 Kaiser Backblech antihaft 39x32cm](https://www.amazon.de/dp/B000HOGZJQ?tag=einfachrezepte21&linkCode=ogi) – Für gleichmäßig gebackenen Blätterteig
+- [🥇 Apfelentkerner & -teiler](https://www.amazon.de/dp/B01LXRLR8R?tag=einfachrezepte21&linkCode=ogi) – Schnelle Apfelvorbereitung für die Füllung
+- [🥇 WMF Teigrolle Edelstahl](https://www.amazon.de/dp/B0000DK47U?tag=einfachrezepte21&linkCode=ogi) – Für gleichmäßig ausgerollten Blätterteig

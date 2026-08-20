@@ -85,3 +85,9 @@ Jedes Dressing folgt dem gleichen Baukasten-Prinzip:
 Mix and Match – du kannst nicht viel falsch machen!
 
 👉 Diese Dressings passen perfekt zu meiner [bunten Veggie-Bowl](/posts/bunte-veggie-bowl/) – probier's aus!
+
+**🍳 Empfohlene Produkte**
+
+- [🥇 WMF Salatschleuder](https://www.amazon.de/dp/B000G0K8J6?tag=einfachrezepte21&linkCode=ogi) – Für trockenen Salat als Basis jedes Dressings
+- [🥇 Nutribullet Standmixer](https://www.amazon.de/dp/B01GPU2LBM?tag=einfachrezepte21&linkCode=ogi) – Für cremige Avocado-Kräuter-Dressings
+- [🥇 Messbecher mit Ausguss 1L](https://www.amazon.de/dp/B0000DK3K0?tag=einfachrezepte21&linkCode=ogi) – Zum einfachen Anrühren der Vinaigrette

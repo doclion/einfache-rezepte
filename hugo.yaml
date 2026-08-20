@@ -42,7 +42,7 @@ params:
   language: "de"
   # Affiliate config
   affiliateText: "Dieser Beitrag enthält Affiliate-Links. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen."
-  amazonTag: "einfach-rezepte-21"
+  amazonTag: "einfachrezepte21"
   # Social
   social:
     - name: "GitHub"

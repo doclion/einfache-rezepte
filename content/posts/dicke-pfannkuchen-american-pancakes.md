@@ -68,3 +68,9 @@ Einen Stapel von 4-5 Pancakes anrichten. Mit Ahornsirup beträufeln, frische Bee
 - **Vollkorn:** Die Hälfte des Mehls durch Dinkel-Vollkornmehl ersetzen – herzhafter, gesünder.
 
 👉 Perfekt zum Brunch: Kombiniere mit meiner [bunten Veggie-Bowl](/posts/bunte-veggie-bowl/) für ein süß-herzhaftes Frühstücksbuffet!
+
+**🍳 Empfohlene Produkte**
+
+- [🥇 Tefal Pfannkuchenpfanne 28cm](https://www.amazon.de/dp/B00E4OKCTQ?tag=einfachrezepte21&linkCode=ogi) – Antihaft-Pfanne für perfekte goldbraune Pancakes
+- [🥇 Waldherr Ahornsirup Grad A](https://www.amazon.de/dp/B00F4YF7QI?tag=einfachrezepte21&linkCode=ogi) – Echter Ahornsirup aus Kanada
+- [🥇 Rösle Schneebesen Edelstahl](https://www.amazon.de/dp/B000BBD2P4?tag=einfachrezepte21&linkCode=ogi) – Für einen klumpenfreien Pancake-Teig

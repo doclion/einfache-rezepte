@@ -65,3 +65,9 @@ Wenn es draußen stürmt und drinnen die Nase läuft, hilft nur eins: eine **dam
 Selbstgemachte Hühnersuppe enthält keine Geschmacksverstärker, kein überschüssiges Salz und vor allem: **Liebe**. Die lange Kochzeit extrahiert Mineralstoffe, Kollagen und Aminosäuren aus dem Huhn, die nachweislich entzündungshemmend wirken. Ob die Oma nun Recht hatte oder nicht – die Suppe tut auf jeden Fall gut.
 
 👉 Magst du auch deftige Eintöpfe? Dann empfehle ich dir mein [Gulasch-Rezept](/posts/klassisches-ungarisches-gulasch/)!
+
+**🍳 Empfohlene Produkte**
+
+- [🥇 WMF Suppentopf 24cm mit Glasdeckel](https://www.amazon.de/dp/B000G0K6TS?tag=einfachrezepte21&linkCode=ogi) – Für 3 Liter goldene Hühnerbrühe
+- [🥇 WMF Schaumkelle Edelstahl](https://www.amazon.de/dp/B0000DK3XB?tag=einfachrezepte21&linkCode=ogi) – Zum Abschäumen der Brühe
+- [🥇 Feines Passiersieb 20cm](https://www.amazon.de/dp/B0814HLMKZ?tag=einfachrezepte21&linkCode=ogi) – Für klare, von Gemüse befreite Brühe
