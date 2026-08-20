@@ -1,0 +1,7 @@
+Google Sitemap Ping: HTTP 404
+Google Blog Search Ping: HTTP 000
+Bing Sitemap Ping: HTTP 410
+Datum: 2026-08-20T13:33:48.252763
+
+HTTP 200 OK = Erfolg
+Anderer Code = Nicht kritisch, Seite wird trotzdem indexiert

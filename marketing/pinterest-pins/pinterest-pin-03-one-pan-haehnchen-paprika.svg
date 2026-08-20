@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1500" width="1000" height="1500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22cc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="1500" fill="url(#bg)" rx="20"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1000" height="12" fill="url(#accent)"/>
+
+  <!-- Emoji / Icon -->
+  <text x="500" y="320" text-anchor="middle" font-size="120">🍗</text>
+
+  <!-- Category badge -->
+  <rect x="350" y="370" width="300" height="45" rx="22" fill="#e67e2233" stroke="#e67e22" stroke-width="2"/>
+  <text x="500" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#e67e22">Hauptgerichte</text>
+
+  <!-- Title -->
+  <text x="500" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#e8e8f0" textLength="880" lengthAdjust="spacing">
+    Hähnchen Paprika
+  </text>
+
+  <!-- Subtitle -->
+  <text x="500" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#8888aa">
+    Schritt-für-Schritt Rezept
+  </text>
+
+  <!-- Description -->
+  <text x="500" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#ccccdd" textLength="800" lengthAdjust="spacing">
+    Aus einer Pfanne, wenig Abwasch, maximaler Geschmack – in 30 Minuten fertig.
+  </text>
+
+  <!-- Stars / Rating -->
+  <text x="500" y="760" text-anchor="middle" font-size="40">⭐⭐⭐⭐⭐</text>
+
+  <!-- Divider -->
+  <line x1="200" y1="830" x2="800" y2="830" stroke="#e67e2244" stroke-width="2"/>
+
+  <!-- Tags -->
+  <text x="500" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e8e8f0">
+    schnell  •  hühnchen  •  one-pot
+  </text>
+
+  <!-- Timer / Difficulty -->
+  <rect x="250" y="950" width="500" height="60" rx="12" fill="#e67e2222" stroke="#e67e2244" stroke-width="1"/>
+  <text x="500" y="985" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e8e8f0">
+    ⏱️ Einfach &amp; Schnell  |  Perfekt für den Alltag
+  </text>
+
+  <!-- Call to action -->
+  <rect x="200" y="1080" width="600" height="80" rx="40" fill="url(#accent)"/>
+  <text x="500" y="1130" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff">
+    REZEPT ANSEHEN →
+  </text>
+
+  <!-- URL -->
+  <text x="500" y="1240" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#666688">
+    doclion.github.io/einfache-rezepte
+  </text>
+
+  <!-- Product recommendation -->
+  <rect x="150" y="1300" width="700" height="100" rx="12" fill="#ffffff08"/>
+  <text x="500" y="1340" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8888aa">
+    🛒 Empfohlen: Tefal Pfanne auf Amazon
+  </text>
+  <text x="500" y="1375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#555577">
+    Affiliate-Link • Als Amazon-Partner verdienen wir an qualifizierten Verkäufen
+  </text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="1488" width="1000" height="12" fill="url(#accent)"/>
+</svg>

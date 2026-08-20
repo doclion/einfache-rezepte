@@ -36,13 +36,22 @@ markup:
 params:
   description: "Einfache Rezepte für jeden Tag - Von schnellen Gerichten über gesunde Optionen bis zu Backrezepten. Schritt-für-Schritt Anleitungen."
   author: "KüchenRat"
-  keywords: "Rezepte, einfache Rezepte, kochen, backen, deutsche Küche, schnelle Gerichte"
+  keywords: "Rezepte, einfache Rezepte, kochen, backen, deutsche Küche, schnelle Gerichte, Fürth, Franken, Deutschland, vegetarisch, vegan, Hausmannskost"
+  keyword_meta: "einfache Rezepte, deutsche Küche, kochen lernen, schnelle Gerichte, Fürth Rezepte, fränkische Küche, Meal Prep, Backrezepte, Suppen, Bowls"
   mainSections: ["posts"]
   dateFormat: "02.01.2006"
   language: "de"
   # Affiliate config
   affiliateText: "Dieser Beitrag enthält Affiliate-Links. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen."
   amazonTag: "einfachrezepte21"
+  # SEO Erweiterungen
+  seo:
+    googleVerification: ""  # Google Search Console Code eintragen
+    bingVerification: ""    # Bing Webmaster Code eintragen
+    pinterestVerification: "" # Pinterest Anspruchs-Code eintragen
+    recipeSchema: true       # Recipe Schema.org JSON-LD aktivieren
+    locale: "de_DE"
+    siteAltName: "Einfache Rezepte Blog - Kochen leicht gemacht"
   # Social
   social:
     - name: "GitHub"

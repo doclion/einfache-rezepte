@@ -1,0 +1,9 @@
+{
+  "board_name": "Einfache Rezepte für jeden Tag",
+  "board_description": "Schnelle, einfache und leckere Rezepte für den Alltag. Von Hauptgerichten bis Backrezepte – alle Gerichte sind Schritt-für-Schritt erklärt.",
+  "board_category": "food_drink",
+  "board_privacy": "public",
+  "pins": 10,
+  "schedule": "1 Pin pro Tag (morgens 10:00 Uhr)",
+  "hashtags": "#rezepte #kochen #einfacherezepte #deutscheküche #backen #gesundessen #mealprep #schnelleküche"
+}

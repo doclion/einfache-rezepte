@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# SEO Optimierungen - Stand August 2026
+# SEO Optimierungen
 Sitemap: https://doclion.github.io/einfache-rezepte/sitemap.xml
 
 # Crawl-Delay für Server-Schonung
@@ -11,9 +11,17 @@ Crawl-Delay: 10
 User-agent: Googlebot
 Allow: /
 Allow: /posts/
+Allow: /tags/
+Allow: /categories/
+Disallow: /categories/*/page/
+Disallow: /tags/*/page/
 Disallow: /*?*
 
 # Bing
 User-agent: Bingbot
 Allow: /
 Crawl-Delay: 10
+
+# Keine Archive durchsuchen
+User-agent: *
+Disallow: /*/page/
