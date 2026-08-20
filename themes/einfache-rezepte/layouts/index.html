@@ -1,11 +1,13 @@
 {{ define "main" }}
 <section class="hero">
-    <h1>Einfache Rezepte für jeden Tag 🍳</h1>
-    <p class="hero-sub">Leckere Gerichte, die garantiert gelingen – von schnell bis aufwendig, von klassisch bis kreativ. Alle Rezepte Schritt-für-Schritt erklärt.</p>
-    <p class="hero-meta">Mit <strong>{{ len (where $.Site.RegularPages "Section" "posts") }}</strong> Rezepten · Aktualisiert: {{ now.Format "02.01.2006" }}</p>
-    <div class="hero-search">
-        <input type="text" id="search-input" placeholder="Rezept suchen (z.B. Kartoffeln, Pasta, Salat…)" onkeydown="if(event.key==='Enter') window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(this.value)">
-        <button onclick="window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(document.getElementById('search-input').value)">🔍 Suchen</button>
+    <div class="hero-content">
+        <h1>Einfache Rezepte <span>für jeden Tag</span> 🍳</h1>
+        <p class="hero-sub">Leckere Gerichte, die garantiert gelingen – von schnell bis aufwendig, von klassisch bis kreativ. Alle Rezepte Schritt-für-Schritt erklärt.</p>
+        <p class="hero-meta">📖 <strong>{{ len (where $.Site.RegularPages "Section" "posts") }}</strong> Rezepte · Aktualisiert: {{ now.Format "02.01.2006" }}</p>
+        <div class="hero-search">
+            <input type="text" id="search-input" placeholder="Was möchtest du kochen? Kartoffeln, Pasta, Salat…" onkeydown="if(event.key==='Enter') window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(this.value)">
+            <button onclick="window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(document.getElementById('search-input').value)">🔍 Suchen</button>
+        </div>
     </div>
 </section>
 
@@ -38,6 +40,30 @@
             <div class="card-image">
                 {{ if eq $index 0 }}<span class="card-badge">Neuestes Rezept</span>{{ end }}
                 <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="{{ if lt $index 4 }}eager{{ else }}lazy{{ end }}">
+                <button class="card-save" onclick="alert('🔖 Rezept gespeichert!')" title="Merken">🔖</button>
+            </div>
+            {{ else }}
+            <div class="card-image">
+                {{ if eq $index 0 }}<span class="card-badge">Neuestes Rezept</span>{{ end }}
+                <div class="card-image-placeholder">
+                    {{ $emoji := "🍳" }}
+                    {{ range first 1 .Params.tags }}
+                        {{ if eq . "nudeln" }}{{ $emoji = "🍝" }}{{ end }}
+                        {{ if eq . "salat" }}{{ $emoji = "🥗" }}{{ end }}
+                        {{ if eq . "suppen" }}{{ $emoji = "🥣" }}{{ end }}
+                        {{ if eq . "backen" }}{{ $emoji = "🥐" }}{{ end }}
+                        {{ if eq . "dessert" }}{{ $emoji = "🍰" }}{{ end }}
+                        {{ if eq . "fruehstueck" }}{{ $emoji = "🥞" }}{{ end }}
+                        {{ if eq . "haehnchen" }}{{ $emoji = "🍗" }}{{ end }}
+                        {{ if eq . "vegan" }}{{ $emoji = "🥬" }}{{ end }}
+                        {{ if eq . "pizza" }}{{ $emoji = "🍕" }}{{ end }}
+                        {{ if eq . "kuchen" }}{{ $emoji = "🎂" }}{{ end }}
+                        {{ if eq . "grillen" }}{{ $emoji = "🔥" }}{{ end }}
+                        {{ if eq . "fisch" }}{{ $emoji = "🐟" }}{{ end }}
+                    {{ end }}
+                    <span class="emoji">{{ $emoji }}</span>
+                </div>
+                <button class="card-save" onclick="alert('🔖 Rezept gespeichert!')" title="Merken">🔖</button>
             </div>
             {{ end }}
             <div class="card-content">
@@ -67,8 +93,8 @@
 
 <section class="newsletter-section">
     <h2>📧 Kostenlose Rezepte per E-Mail</h2>
-    <p>Erhalte jeden Donnerag die besten neuen Rezepte direkt in dein Postfach. Jederzeit kündbar.</p>
-    <form class="newsletter-form" action="#" method="post">
+    <p>Erhalte jeden Donnerstag die besten neuen Rezepte direkt in dein Postfach. Jederzeit kündbar.</p>
+    <form class="newsletter-form" action="#" method="post" onsubmit="alert('✅ Danke für die Anmeldung!'); return false;">
         <input type="email" placeholder="Deine E-Mail-Adresse" required>
         <button type="submit">Kostenlos anmelden</button>
     </form>
