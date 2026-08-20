@@ -41,7 +41,7 @@
   src: url('../fonts/plex-mono-500.woff2') format('woff2');
 }
 
-/* --- Tokens --- */
+/* --- Light Tokens --- */
 :root {
   --ink: #15201c;
   --ink-2: #4a5852;
@@ -56,6 +56,8 @@
   --linie: #e0ddd4;
   --linie-soft: #efece4;
   --warn-bg: #fdf3e0;
+  --warn-fg: #6b4a15;
+  --warn-border: #f0dcb4;
 
   --font-display: 'Zilla Slab', Georgia, 'Times New Roman', serif;
   --font-body: 'Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -68,9 +70,85 @@
   --breite: 1160px;
   --breite-text: 68ch;
   --kopf-h: 60px;
+  --kopf-h-mobile: 54px;
 
   --schatten: 0 1px 2px rgba(21, 32, 28, .05), 0 4px 14px rgba(21, 32, 28, .05);
   --schatten-hoch: 0 2px 4px rgba(21, 32, 28, .06), 0 12px 32px rgba(21, 32, 28, .1);
+
+  --filterleiste-bg: rgba(251, 250, 247, .92);
+}
+
+/* --- Dark Tokens --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e0e6e2;
+    --ink-2: #b1c0b8;
+    --ink-3: #7e9289;
+    --emaille: #1a6353;
+    --emaille-2: #2dab8f;
+    --emaille-3: #1a2e28;
+    --safran: #da9b2a;
+    --safran-bg: #2d2410;
+    --papier: #141e1a;
+    --karte: #1b2822;
+    --linie: #2a3a33;
+    --linie-soft: #23312b;
+    --warn-bg: #2d2410;
+    --warn-fg: #da9b2a;
+    --warn-border: #4a3a1a;
+
+    --schatten: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .2);
+    --schatten-hoch: 0 2px 4px rgba(0, 0, 0, .4), 0 12px 32px rgba(0, 0, 0, .3);
+
+    --filterleiste-bg: rgba(20, 30, 26, .92);
+  }
+
+  /* Bild-Hintergrund etwas dunkler */
+  .karte-bild { background: #0f1a15; }
+  .karte-bild-leer { background: repeating-linear-gradient(135deg, #16241e 0 12px, #1a2e28 12px 24px); }
+
+  /* Filterleiste bg */
+  .filterleiste { background: var(--filterleiste-bg); }
+
+  /* Suchfeld */
+  .suchfeld input { background: var(--karte); border-color: var(--linie); }
+  .suchfeld input:focus { border-color: var(--safran); box-shadow: 0 0 0 4px var(--safran-bg); }
+
+  /* Chip Hintergrund */
+  .chip { background: var(--karte); }
+
+  /* Skip-link besser sichtbar */
+  .skip-link:focus { outline-color: var(--safran); }
+
+  /* Karten */
+  .karte { background: var(--karte); }
+
+  /* Hinweise */
+  .hinweis { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-fg); }
+  .hinweis a { color: var(--warn-fg); }
+
+  /* Kochmodus-start */
+  .kochmodus-start { background: var(--emaille-2); }
+
+  /* Blättern */
+  .blaetterei a, .blaetterei span { background: var(--karte); }
+
+  /* Schlagwort */
+  .schlagwort { background: var(--emaille-3); color: var(--emaille-2); }
+  .schlagwort:hover { background: var(--emaille-2); color: var(--karte); }
+
+  /* Table header */
+  .fliesstext th { background: var(--emaille-3); }
+
+  /* Leerzustand */
+  .leer-zustand { border-color: var(--linie); }
+
+  /* Nav */
+  .nav a { color: #b1c0b8; }
+  .nav a:hover, .nav a[aria-current="page"] { background: rgba(255, 255, 255, .08); }
+
+  /* Scrollbar dunkel */
+  ::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 4px; }
 }
 
 /* --- Reset --- */
@@ -194,9 +272,10 @@ main { flex: 1 0 auto; padding-bottom: 4rem; }
 .nav-toggle svg { width: 20px; height: 20px; }
 
 @media (max-width: 800px) {
+  .kopf { height: var(--kopf-h-mobile); }
   .nav-toggle { display: inline-flex; }
   .nav {
-    position: absolute; inset-inline: 0; top: var(--kopf-h);
+    position: absolute; inset-inline: 0; top: var(--kopf-h-mobile);
     flex-direction: column; align-items: stretch;
     background: var(--emaille); padding: .5rem 1.25rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, .1);
@@ -205,6 +284,13 @@ main { flex: 1 0 auto; padding-bottom: 4rem; }
   }
   .nav.offen { display: flex; }
   .nav a { padding: .7rem .5rem; }
+  .marke-nr { display: none; }
+}
+
+@media (max-width: 480px) {
+  .kopf { height: var(--kopf-h-mobile); }
+  .marke { font-size: 1.05rem; gap: .3rem; }
+  .marke-nr { display: none; }
 }
 
 /* ==========================================================================
@@ -243,11 +329,27 @@ main { flex: 1 0 auto; padding-bottom: 4rem; }
 
 .schnellfilter { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
 
+@media (max-width: 700px) {
+  .suchkopf { padding-block: 2rem 1.5rem; }
+  .suchkopf h1 { max-width: 100%; }
+  .suchkopf .lede { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .suchkopf { padding-block: 1.5rem 1.25rem; }
+  .suchfeld { max-width: 100%; }
+  .suchfeld input { padding: .85rem .85rem .85rem 2.6rem; font-size: 16px; }
+  .suchfeld .lupe { left: .75rem; width: 18px; height: 18px; }
+  .schnellfilter { gap: .35rem; }
+  .schnellfilter .chip { font-size: .8rem; padding: .3rem .65rem; }
+}
+
 /* --- Filterleiste --- */
 .filterleiste {
   position: sticky; top: var(--kopf-h); z-index: 90;
-  background: rgba(251, 250, 247, .95);
+  background: var(--filterleiste-bg);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--linie);
   padding-block: .75rem;
 }
@@ -278,6 +380,31 @@ select.filter-select {
   font-size: .85rem; font-weight: 500;
 }
 
+@media (max-width: 800px) {
+  .filterleiste { top: var(--kopf-h-mobile); }
+}
+
+@media (max-width: 700px) {
+  .filterleiste { padding-block: .6rem; }
+  .filterleiste-inner { gap: .5rem; }
+  select.filter-select { max-width: 100%; flex-shrink: 1; }
+}
+
+@media (max-width: 480px) {
+  .filterleiste-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .4rem;
+  }
+  .treffer { grid-column: 1 / -1; margin-right: 0; font-size: .78rem; }
+  select.filter-select {
+    width: 100%;
+    padding: .4rem .5rem;
+    font-size: .82rem;
+  }
+  .filterleiste-inner .chip { font-size: .82rem; padding: .35rem .65rem; }
+}
+
 /* ==========================================================================
    Rezeptkarten
    ========================================================================== */
@@ -288,6 +415,7 @@ select.filter-select {
   margin-top: 1.75rem;
 }
 .karte {
+  position: relative;
   display: flex; flex-direction: column;
   background: var(--karte);
   border: 1px solid var(--linie);
@@ -319,7 +447,6 @@ select.filter-select {
 .karte h3 { font-size: 1.12rem; line-height: 1.25; }
 .karte h3 a { color: var(--ink); text-decoration: none; }
 .karte h3 a::after { content: ''; position: absolute; inset: 0; }
-.karte { position: relative; }
 .karte h3 a:hover { color: var(--emaille-2); }
 .karte p {
   font-size: .9rem; color: var(--ink-2); line-height: 1.5;
@@ -339,6 +466,16 @@ select.filter-select {
 }
 .leer-zustand h3 { margin-bottom: .4rem; }
 .leer-zustand p { color: var(--ink-2); margin-bottom: 1rem; }
+
+@media (max-width: 700px) {
+  .karten { gap: 1rem; margin-top: 1.25rem; }
+  .karte-inhalt { padding: .85rem .85rem 1rem; }
+  .karte h3 { font-size: 1.05rem; }
+}
+
+@media (max-width: 320px) {
+  .karten { grid-template-columns: 1fr; gap: .85rem; }
+}
 
 /* ==========================================================================
    Rezeptseite
@@ -377,8 +514,9 @@ select.filter-select {
 }
 .eckdaten dd { font-size: 1.02rem; font-weight: 600; }
 @media (max-width: 640px) {
-  .eckdaten { grid-template-columns: repeat(2, 1fr); }
+  .eckdaten { grid-template-columns: repeat(2, 1fr); gap: 0; }
   .eckdaten div { border-bottom: 1px solid var(--linie-soft); }
+  .eckdaten div:nth-child(even) { border-right: 0; }
 }
 
 /* Zweispalter */
@@ -488,11 +626,11 @@ select.filter-select {
 
 /* Hinweise */
 .hinweis {
-  background: var(--warn-bg); border: 1px solid #f0dcb4;
+  background: var(--warn-bg); border: 1px solid var(--warn-border);
   border-radius: var(--r); padding: .8rem 1rem;
-  font-size: .85rem; color: #6b4a15;
+  font-size: .85rem; color: var(--warn-fg);
 }
-.hinweis a { color: #6b4a15; }
+.hinweis a { color: var(--warn-fg); }
 .affiliate-hinweis { margin: 1.5rem 0; }
 
 /* Schlagwoerter */
@@ -596,7 +734,39 @@ select.filter-select {
   font-size: .78rem; color: #8fada5;
 }
 
-/* Druckansicht */
+@media (max-width: 700px) {
+  .fuss { padding-block: 2rem 1.25rem; }
+  .fuss-raster { grid-template-columns: 1fr; gap: 1.5rem; }
+  .fuss-unten { flex-direction: column; text-align: center; gap: .35rem; }
+}
+
+@media (max-width: 480px) {
+  .fuss { padding-block: 1.5rem 1rem; }
+  .fuss-raster { gap: 1.25rem; }
+  .fuss p, .fuss a { font-size: .85rem; }
+}
+
+/* ==========================================================================
+   Mobile Verbesserungen (general)
+   ========================================================================== */
+@media (max-width: 700px) {
+  html { scroll-padding-top: calc(var(--kopf-h-mobile) + .75rem); }
+  main { padding-bottom: 2.5rem; }
+  .abschnitt { margin-top: 2.5rem; }
+  .wrap { padding-inline: .85rem; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .wrap { padding-inline: .65rem; }
+  .lede { font-size: .97rem; }
+  .abschnitt { margin-top: 2rem; }
+  .abschnitt-kopf { flex-direction: column; gap: .35rem; }
+}
+
+/* ==========================================================================
+   Druckansicht
+   ========================================================================== */
 @media print {
   .kopf, .fuss, .filterleiste, .kochmodus, .kochmodus-start, .blaettern, .schlagwoerter, .seitenspalte-verstecken { display: none !important; }
   body { background: #fff; font-size: 12pt; }
