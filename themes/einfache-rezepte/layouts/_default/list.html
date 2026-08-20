@@ -1,7 +1,29 @@
 {{ define "main" }}
 <section class="list-page">
-    <h1>{{ .Title }}</h1>
-    {{ with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
+    <div class="list-header">
+        <h1>📖 {{ .Title }}</h1>
+        {{ with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
+        <p class="hero-meta">{{ len .Pages }} Rezepte gefunden</p>
+    </div>
+
+    <!-- Category filter tabs -->
+    {{ if eq .Section "posts" }}
+    {{ if .Site.Taxonomies.categories }}
+    <div class="category-pills" style="margin-bottom: 2rem;">
+        <a href="{{ "posts/" | absURL }}" class="category-pill" style="background: var(--accent-gradient); color: white; border-color: transparent;">
+            🍽️ Alle
+            <span class="count" style="background: rgba(255,255,255,0.2); color: white;">{{ len .RegularPages }}</span>
+        </a>
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="category-pill">
+            {{ $name | title }}
+            <span class="count">{{ $taxonomy.Count }}</span>
+        </a>
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+
     <div class="post-grid">
         {{ range .Paginator.Pages }}
         <article class="post-card">
@@ -20,11 +42,15 @@
                 <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
                 <p>{{ .Summary | plainify | truncate 120 }}</p>
                 <div class="card-tags">
-                    {{ range .Params.tags }}
+                    {{ range first 3 .Params.tags }}
                     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
                     {{ end }}
                 </div>
-                <a href="{{ .RelPermalink }}" class="read-more">Weiterlesen →</a>
+                <div class="card-meta-recipe">
+                    <span>⏱️ {{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</span>
+                    <span>📊 {{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</span>
+                </div>
+                <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
             </div>
         </article>
         {{ end }}

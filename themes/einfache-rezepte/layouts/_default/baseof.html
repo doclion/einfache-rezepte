@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1a1a2e">
+    <meta name="theme-color" content="#e86830">
     
     <title>{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }} | {{ $.Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ $.Site.Params.description }}{{ end }}{{ end }}">
@@ -19,11 +19,13 @@
     <meta property="og:url" content="{{ .Permalink }}">
     <meta property="og:site_name" content="{{ $.Site.Title }}">
     <meta property="og:locale" content="de_DE">
+    {{ if .Params.image }}<meta property="og:image" content="{{ .Params.image | absURL }}">{{ end }}
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}">
     <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}">
+    {{ if .Params.image }}<meta name="twitter:image" content="{{ .Params.image | absURL }}">{{ end }}
     
     <!-- Canonical -->
     <link rel="canonical" href="{{ .Permalink }}">
@@ -44,23 +46,26 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "{{ if .IsHome }}WebSite{{ else }}Article{{ end }}",
+        "@type": "{{ if .IsHome }}WebSite{{ else if in .Site.Params.mainSections .Section }}Recipe{{ else }}Article{{ end }}",
         "name": "{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }}{{ end }}",
         "url": "{{ .Permalink }}",
         "description": "{{ with .Description }}{{ . }}{{ else }}{{ $.Site.Params.description }}{{ end }}",
         "inLanguage": "de-DE"
+        {{ if not .IsHome }}{{ if .Params.image }},
+        "image": "{{ .Params.image | absURL }}"{{ end }}{{ end }}
     }
     </script>
 </head>
 <body>
     <header class="site-header">
         <nav class="nav-container">
-            <a href="{{ "" | absURL }}" class="site-logo">🍳 {{ $.Site.Title }}</a>
+            <a href="{{ "" | absURL }}" class="site-logo">🍳 Einfache Rezepte</a>
             <div class="nav-links">
                 <a href="{{ "" | absURL }}">Start</a>
                 <a href="{{ "posts/" | absURL }}">Rezepte</a>
                 <a href="{{ "ueber-uns/" | absURL }}">Über uns</a>
                 <a href="{{ "impressum/" | absURL }}">Impressum</a>
+                <button class="nav-search-btn" onclick="document.querySelector('.hero-search input')?.focus() || document.getElementById('search-input')?.focus()">🔍 Suchen</button>
             </div>
         </nav>
     </header>
@@ -73,7 +78,7 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h3>🍳 Einfache Rezepte</h3>
-                <p>Leckere, einfache Gerichte für jeden Tag. Von klassisch bis modern – wir zeigen dir, wie's geht.</p>
+                <p>Leckere, einfache Gerichte für jeden Tag. Von klassisch bis modern – wir zeigen dir, wie's geht. Schritt-für-Schritt, garantiert gelingsicher.</p>
             </div>
             <div class="footer-col">
                 <h3>Rechtliches</h3>
@@ -95,7 +100,7 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; {{ now.Format "2006" }} {{ $.Site.Title }}. Alle Rechte vorbehalten.</p>
-            <p class="affiliate-notice">* Alle Preise inkl. MwSt., ggf. zzgl. Versand. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.</p>
+            <p>* Alle Preise inkl. MwSt., ggf. zzgl. Versand. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.</p>
         </div>
     </footer>
 </body>

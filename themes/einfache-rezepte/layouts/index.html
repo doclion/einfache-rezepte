@@ -1,19 +1,43 @@
 {{ define "main" }}
 <section class="hero">
     <h1>Einfache Rezepte für jeden Tag 🍳</h1>
-    <p class="hero-sub">Leckere Gerichte, die garantiert gelingen – von schnell bis aufwendig, von klassisch bis kreativ.</p>
-    <p class="hero-meta">Mit <strong>{{ len (where $.Site.RegularPages "Section" "posts") }}</strong> Rezepten | Aktualisiert: {{ now.Format "02.01.2006" }}</p>
+    <p class="hero-sub">Leckere Gerichte, die garantiert gelingen – von schnell bis aufwendig, von klassisch bis kreativ. Alle Rezepte Schritt-für-Schritt erklärt.</p>
+    <p class="hero-meta">Mit <strong>{{ len (where $.Site.RegularPages "Section" "posts") }}</strong> Rezepten · Aktualisiert: {{ now.Format "02.01.2006" }}</p>
+    <div class="hero-search">
+        <input type="text" id="search-input" placeholder="Rezept suchen (z.B. Kartoffeln, Pasta, Salat…)" onkeydown="if(event.key==='Enter') window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(this.value)">
+        <button onclick="window.location.href='{{ "posts/" | absURL }}' + '?search=' + encodeURIComponent(document.getElementById('search-input').value)">🔍 Suchen</button>
+    </div>
+</section>
+
+<section class="categories-section">
+    <div class="section-title">
+        <p class="subtitle">Entdecke</p>
+        <h2>Rezepte nach Kategorie</h2>
+    </div>
+    <div class="category-pills">
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="category-pill">
+            {{ $name | title }}
+            <span class="count">{{ $taxonomy.Count }}</span>
+        </a>
+        {{ end }}
+    </div>
 </section>
 
 <section class="featured-posts">
-    <h2>Die neuesten Rezepte</h2>
+    <div class="section-title">
+        <p class="subtitle">Frisch aus der Küche</p>
+        <h2>Die neuesten Rezepte</h2>
+    </div>
     <div class="post-grid">
         {{ $pages := where .Site.RegularPages "Section" "posts" }}
-        {{ range $pages.ByDate.Reverse }}
+        {{ $sorted := $pages.ByDate.Reverse }}
+        {{ range $index, $page := $sorted }}
         <article class="post-card">
             {{ if .Params.image }}
             <div class="card-image">
-                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+                {{ if eq $index 0 }}<span class="card-badge">Neuestes Rezept</span>{{ end }}
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="{{ if lt $index 4 }}eager{{ else }}lazy{{ end }}">
             </div>
             {{ end }}
             <div class="card-content">
@@ -24,37 +48,29 @@
                     {{ end }}
                 </div>
                 <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                <p>{{ .Summary | plainify | truncate 120 }}</p>
+                <p>{{ .Summary | plainify | truncate 130 }}</p>
                 <div class="card-tags">
-                    {{ range .Params.tags }}
+                    {{ range first 3 .Params.tags }}
                     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
                     {{ end }}
                 </div>
-                <a href="{{ .RelPermalink }}" class="read-more">Weiterlesen →</a>
+                <div class="card-meta-recipe">
+                    <span>⏱️ {{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</span>
+                    <span>📊 {{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</span>
+                </div>
+                <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
             </div>
         </article>
         {{ end }}
     </div>
 </section>
 
-<section class="categories-section">
-    <h2>Rezepte nach Kategorie</h2>
-    <div class="category-list">
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="category-card">
-            <h3>{{ $name | title }}</h3>
-            <span class="count">{{ $taxonomy.Count }} Rezepte</span>
-        </a>
-        {{ end }}
-    </div>
-</section>
-
 <section class="newsletter-section">
-    <h2>📧 Rezepte per E-Mail</h2>
-    <p>Erhalte neue Rezepte direkt in dein Postfach. Einfach anmelden:</p>
+    <h2>📧 Kostenlose Rezepte per E-Mail</h2>
+    <p>Erhalte jeden Donnerag die besten neuen Rezepte direkt in dein Postfach. Jederzeit kündbar.</p>
     <form class="newsletter-form" action="#" method="post">
         <input type="email" placeholder="Deine E-Mail-Adresse" required>
-        <button type="submit">Anmelden</button>
+        <button type="submit">Kostenlos anmelden</button>
     </form>
 </section>
 {{ end }}

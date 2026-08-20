@@ -4,21 +4,88 @@
         <p class="breadcrumbs"><a href="{{ "" | absURL }}">Start</a> / <a href="{{ "posts/" | absURL }}">Rezepte</a> / {{ .Title }}</p>
         <h1>{{ .Title }}</h1>
         <div class="post-meta">
-            <time datetime="{{ .Date.Format "2006-01-02" }}">Veröffentlicht: {{ .Date.Format "02.01.2006" }}</time>
+            <span>📅 <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time></span>
             {{ with .Params.categories }}
-            <span> | Kategorie: <a href="{{ "/categories/" | relLangURL }}{{ index . 0 | urlize }}">{{ index . 0 }}</a></span>
+            <span>📂 <a href="{{ "/categories/" | relLangURL }}{{ index . 0 | urlize }}">{{ index . 0 }}</a></span>
             {{ end }}
-            <span> | Lesezeit: {{ .ReadingTime }} Min.</span>
+            <span>⏱️ {{ .ReadingTime }} Min. Lesezeit</span>
+            {{ if .Params.cookTime }}<span>👨‍🍳 {{ .Params.cookTime }} Zubereitung{{ end }}</span>
         </div>
+
         {{ if .Params.image }}
-        <div class="post-image">
-            <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+        <div class="post-hero-image">
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="eager">
         </div>
         {{ end }}
     </header>
 
-    <div class="post-content">
-        {{ .Content }}
+    <!-- Quick Info Bar -->
+    <div class="recipe-quick-info">
+        <div class="info-item">
+            <div class="icon">⏱️</div>
+            <div class="label">Zubereitung</div>
+            <div class="value">{{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">🍽️</div>
+            <div class="label">Portionen</div>
+            <div class="value">{{ if .Params.servings }}{{ .Params.servings }}{{ else }}2–4{{ end }}</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">📊</div>
+            <div class="label">Schwierigkeit</div>
+            <div class="value">{{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">🔥</div>
+            <div class="label">Kalorien</div>
+            <div class="value">{{ if .Params.calories }}{{ .Params.calories }}{{ else }}—{{ end }}</div>
+        </div>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="recipe-layout">
+        <!-- Sidebar: Zutaten & Nährwerte -->
+        <aside class="recipe-sidebar">
+            <div class="ingredients-card">
+                <h3>🥘 Zutaten</h3>
+                <div class="servings-toggle">
+                    <span>Portionen:</span>
+                    <button onclick="adjustServings(-1)">−</button>
+                    <span id="serving-count">2</span>
+                    <button onclick="adjustServings(1)">+</button>
+                </div>
+                <ul class="ingredients-list">
+                    {{ $content := .RawContent }}
+                    {{ $inIngredients := false }}
+                    {{ range split .RawContent "\n" }}
+                        {{ if or (hasPrefix . "## Zutaten") (hasPrefix . "### Zutaten") }}{{ $inIngredients = true }}{{ else if hasPrefix . "## " }}{{ $inIngredients = false }}{{ end }}
+                        {{ if $inIngredients }}
+                            {{ if hasPrefix . "- " }}
+                            <li>{{ strings.TrimPrefix "- " . }}</li>
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                </ul>
+            </div>
+
+            <div class="nutrition-card">
+                <h3>📊 Nährwerte pro Portion</h3>
+                <div class="nutrition-grid">
+                    <div class="nutrient"><span class="name">Kalorien</span><span class="value">{{ if .Params.calories }}{{ .Params.calories }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Eiweiß</span><span class="value">{{ if .Params.protein }}{{ .Params.protein }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Fett</span><span class="value">{{ if .Params.fat }}{{ .Params.fat }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Kohlenhydrate</span><span class="value">{{ if .Params.carbs }}{{ .Params.carbs }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Ballaststoffe</span><span class="value">{{ if .Params.fiber }}{{ .Params.fiber }}{{ else }}—{{ end }}</span></div>
+                    <div class="nutrient"><span class="name">Zucker</span><span class="value">{{ if .Params.sugar }}{{ .Params.sugar }}{{ else }}—{{ end }}</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content: Zubereitung -->
+        <div class="post-content">
+            {{ .Content }}
+        </div>
     </div>
 
     <!-- Affiliate notice -->
@@ -40,18 +107,25 @@
     {{ $related := .Site.RegularPages.Related . | first 3 }}
     {{ with $related }}
     <section class="related-posts">
-        <h2>Das könnte dir auch gefallen</h2>
+        <h2>👩‍🍳 Das könnte dir auch gefallen</h2>
         <div class="post-grid">
             {{ range . }}
-            <article class="post-card mini">
+            <article class="post-card">
                 {{ if .Params.image }}
                 <div class="card-image">
                     <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
                 </div>
                 {{ end }}
                 <div class="card-content">
+                    <div class="card-meta">
+                        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
+                        {{ with .Params.categories }}
+                        <span class="card-category">{{ index . 0 }}</span>
+                        {{ end }}
+                    </div>
                     <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
                     <p>{{ .Summary | plainify | truncate 100 }}</p>
+                    <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
                 </div>
             </article>
             {{ end }}
@@ -69,4 +143,29 @@
         {{ end }}
     </nav>
 </article>
+
+<script>
+let currentServings = {{ if .Params.servings }}{{ .Params.servings }}{{ else }}2{{ end }};
+const baseServings = currentServings;
+
+function adjustServings(delta) {
+    currentServings = Math.max(1, currentServings + delta);
+    document.getElementById('serving-count').textContent = currentServings;
+    
+    const items = document.querySelectorAll('.ingredients-list li');
+    items.forEach(item => {
+        const text = item.textContent.trim();
+        const match = text.match(/^([\d.,]+)\s*(g|kg|ml|l|EL|TL|Prise|Stück|Scheiben|Scheibe|Zehen|Zehe|Tassen|Becher|Pkg\.|Packung|Dose|Flasche|Bund|Beutel|Pck\.)?\s*/);
+        if (match) {
+            const val = parseFloat(match[1].replace(',', '.'));
+            if (!isNaN(val)) {
+                const newVal = Math.round(val * currentServings / baseServings * 10) / 10;
+                const unit = match[2] || '';
+                const rest = text.substring(match[0].length);
+                item.innerHTML = newVal.toString().replace('.', ',') + ' ' + unit + ' ' + rest;
+            }
+        }
+    });
+}
+</script>
 {{ end }}

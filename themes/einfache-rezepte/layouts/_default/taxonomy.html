@@ -1,6 +1,14 @@
 {{ define "main" }}
 <section class="list-page">
-    <h1>📂 {{ .Title }}</h1>
+    <div class="list-header">
+        <h1>📂 Kategorie: {{ .Title }}</h1>
+        <p class="hero-meta">{{ len .Pages }} Rezepte in dieser Kategorie</p>
+    </div>
+
+    <div class="category-pills" style="margin-bottom: 2rem;">
+        <a href="{{ "posts/" | absURL }}" class="category-pill">🍽️ Alle Rezepte</a>
+    </div>
+
     <div class="post-grid">
         {{ range .Pages }}
         <article class="post-card">
@@ -15,7 +23,11 @@
                 </div>
                 <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
                 <p>{{ .Summary | plainify | truncate 120 }}</p>
-                <a href="{{ .RelPermalink }}" class="read-more">Weiterlesen →</a>
+                <div class="card-meta-recipe">
+                    <span>⏱️ {{ if .Params.cookTime }}{{ .Params.cookTime }}{{ else }}ca. 30 Min.{{ end }}</span>
+                    <span>📊 {{ if .Params.difficulty }}{{ .Params.difficulty }}{{ else }}Mittel{{ end }}</span>
+                </div>
+                <a href="{{ .RelPermalink }}" class="read-more">Zum Rezept →</a>
             </div>
         </article>
         {{ end }}
