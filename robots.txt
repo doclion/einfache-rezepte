@@ -1,1 +1,4 @@
 User-agent: *
+Allow: /
+
+Sitemap: https://doclion.github.io/einfache-rezepte/sitemap.xml
