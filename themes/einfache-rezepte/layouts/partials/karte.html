@@ -1,12 +1,13 @@
 {{- $p := .seite -}}
 {{- $laden := default "lazy" .laden -}}
 {{- $gesamt := add (partial "minuten.html" $p.Params.prepTime) (partial "minuten.html" $p.Params.cookTime) -}}
-{{- $kat := "" -}}{{- with $p.Params.categories -}}{{- $kat = index . 0 -}}{{- end -}}
+{{- if eq $gesamt 0 }}{{ $gesamt = 30 }}{{ end -}}
+{{- $kat := "" -}}{{- with $p.Params.categories -}}{{- if reflect.IsSlice . -}}{{- $kat = index . 0 -}}{{- else -}}{{- $kat = . -}}{{- end -}}{{- end -}}
 {{- $such := lower (printf "%s %s %s %s" $p.Title (partial "beschreibung.html" $p) (delimit ($p.Params.tags | default slice) " ") $kat) -}}
 <article class="karte"
          data-titel="{{ $such }}"
          data-kategorie="{{ $kat | urlize }}"
-         data-schwierigkeit="{{ $p.Params.difficulty | default "" | urlize }}"
+         data-schwierigkeit="{{ $p.Params.difficulty | default "mittel" | urlize }}"
          data-minuten="{{ $gesamt }}">
   <div class="karte-bild">
     {{ with $p.Params.image }}

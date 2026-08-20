@@ -13,4 +13,6 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- return (chomp (replaceRE `\s+` " " (plainify $t))) -}}
+{{- $t = $t | string -}}
+{{- $t = replaceRE `\s+` " " $t -}}
+{{- return $t -}}
