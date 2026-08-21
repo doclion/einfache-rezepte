@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Daily Recipe Blog Post Generator
-=================================
-Generates a new recipe, commits and pushes to GitHub.
-GitHub Actions builds + deploys automatically.
+Daily Recipe Blog Post Generator – Fable-Theme kompatibel
+==========================================================
+Generates a new recipe with proper frontmatter, Unsplash images,
+commits and pushes to GitHub. GitHub Actions builds + deploys.
 
 Usage: python3 daily_recipe.py [--dry-run]
 """
@@ -14,6 +14,26 @@ from pathlib import Path
 PROJECT_DIR = Path("/data/projects/content-farm")
 CONTENT_DIR = PROJECT_DIR / "content" / "posts"
 BLOG_URL = "https://doclion.github.io/einfache-rezepte"
+
+# Kategorie-Mapping für das Fable-Theme
+CATEGORY_MAP = {
+    "Hauptgerichte": "Hauptgerichte",
+    "Suppen & Eintöpfe": "Suppen & Eintöpfe",
+    "Salate": "Salate & Bowls",
+    "Desserts": "Backrezepte",
+    "Frühstück": "Frühstück & Brunch",
+    "Snacks": "Hauptgerichte",
+    "Backen": "Backrezepte",
+}
+
+# Unsplash-Bilder pro Kategorie
+CATEGORY_IMAGES = {
+    "Hauptgerichte": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+    "Suppen & Eintöpfe": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80",
+    "Salate & Bowls": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
+    "Backrezepte": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80",
+    "Frühstück & Brunch": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80",
+}
 
 TOPICS = [
     ("Schnelle Feierabendgerichte", "Hauptgerichte"),
@@ -33,6 +53,14 @@ TOPICS = [
 def log(msg):
     ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{ts}] {msg}", flush=True)
+
+def map_category(raw_cat):
+    """Map topic category to Fable-Theme category string"""
+    return CATEGORY_MAP.get(raw_cat, raw_cat)
+
+def get_image(category):
+    """Get appropriate Unsplash image for category"""
+    return CATEGORY_IMAGES.get(category, "")
 
 def generate_recipe_llm(topic_name, topic_cat):
     """Generate a recipe via LLM"""
@@ -55,15 +83,22 @@ JSON Format (NUR JSON, nichts sonst):
   "ingredients": [["Menge", "Zutat"], ...],
   "instructions": "Schritt-für-Schritt mit Emojis, 5-8 Schritte",
   "tip": "Praxistipp (1 Satz)",
-  "calories": 123,
-  "protein": 12,
-  "fat": 12,
-  "carbs": 34,
+  "prepTime": "15 Min.",
+  "cookTime": "25 Min.",
+  "servings": 4,
+  "difficulty": "einfach",
+  "calories": 450,
+  "protein": 20,
+  "fat": 15,
+  "carbs": 50,
   "keywords": ["Keyword1", "Keyword2", "Keyword3", "Keyword4"],
   "tags": ["tag1", "tag2"]
 }}
 
-Das Rezept muss echt und machbar sein. 8-12 Zutaten."""
+Das Rezept muss echt und machbar sein. 8-12 Zutaten.
+prepTime/cookTime im Format "X Min." oder "X Std Y Min."
+difficulty: "einfach", "mittel", oder "anspruchsvoll"
+"""
     try:
         resp = requests.post(
             "https://openrouter.ai/api/v1/chat/completions",
@@ -73,7 +108,7 @@ Das Rezept muss echt und machbar sein. 8-12 Zutaten."""
                     {"role": "system", "content": "Du generierst deutsche Rezepte als JSON. Nur JSON."},
                     {"role": "user", "content": prompt}
                 ],
-                "temperature": 0.7, "max_tokens": 2000,
+                "temperature": 0.7, "max_tokens": 2500,
             },
             headers={"Authorization": f"Bearer {api_key}"}, timeout=120,
         )
@@ -87,12 +122,17 @@ Das Rezept muss echt und machbar sein. 8-12 Zutaten."""
     return None
 
 def build_post(recipe, category):
-    """Build Hugo markdown from recipe dict"""
+    """Build Hugo markdown with proper frontmatter for the Fable theme"""
     today = datetime.datetime.now()
     date_str = today.strftime("%Y-%m-%dT%H:%M:%S+02:00")
     tags = ", ".join(recipe.get("tags", ["einfach", "kochen"]))
     keywords = ", ".join(recipe.get("keywords", ["Rezept", "Kochen"]))
     ingredients = "\n".join(f"| {q} | {i} |" for q, i in recipe["ingredients"])
+    image = get_image(category)
+    prep = recipe.get("prepTime", "15 Min.")
+    cook = recipe.get("cookTime", "25 Min.")
+    servings = recipe.get("servings", 4)
+    diff = recipe.get("difficulty", "einfach")
 
     return f"""---
 title: "{recipe['title']}"
@@ -101,12 +141,12 @@ draft: false
 tags: [{tags}]
 categories: "{category}"
 description: "{recipe['desc']}"
-image: ""
+image: "{image}"
 slug: {recipe['slug']}
-prepTime: "15 Min."
-cookTime: "25 Min."
-servings: 4
-difficulty: "einfach"
+prepTime: "{prep}"
+cookTime: "{cook}"
+servings: {servings}
+difficulty: "{diff}"
 calories: {recipe.get('calories', 450)}
 protein: {recipe.get('protein', 20)}
 fat: {recipe.get('fat', 15)}
@@ -149,41 +189,40 @@ keywords: [{keywords}]
 def main():
     dry_run = "--dry-run" in sys.argv
     day_of_year = datetime.datetime.now().timetuple().tm_yday
-    topic_name, topic_cat = TOPICS[day_of_year % len(TOPICS)]
-    log(f"📝 Thema: {topic_name} ({topic_cat})")
+    topic_name, raw_cat = TOPICS[day_of_year % len(TOPICS)]
+    category = map_category(raw_cat)
+    log(f"📝 Thema: {topic_name} → Kategorie: {category}")
 
     today_slug = datetime.datetime.now().strftime("%Y-%m-%d")
-    existing = list(CONTENT_DIR.glob(f"daily-{today_slug}*.md"))
+    existing = list(CONTENT_DIR.glob(f"{today_slug}*.md")) + list(CONTENT_DIR.glob(f"daily-{today_slug}*.md"))
     if existing and not dry_run:
         log(f"⏭️ Heute schon generiert: {existing[0].name}")
         print(f"\n✅ Bereits erstellt: {existing[0].name}")
         return 0
 
     log("🤖 Generiere Rezept...")
-    recipe = generate_recipe_llm(topic_name, topic_cat)
+    recipe = generate_recipe_llm(topic_name, raw_cat)
 
     if not recipe:
-        log("⚠️ Fallback-Template")
+        log("⚠️ LLM nicht erreichbar – Fallback")
         slug = f"daily-{today_slug}"
         recipe = {
             "title": f"Schnelles Gericht vom {datetime.datetime.now().strftime('%d.%m.%Y')}",
             "slug": slug,
             "desc": "Ein einfaches, schnelles Rezept für jeden Tag.",
             "intro": "Dieses Gericht ist in 30 Minuten fertig und schmeckt der ganzen Familie.",
-            "ingredients": [
-                ["500 g", "Nudeln"], ["2", "Zwiebeln"], ["3", "Knoblauchzehen"],
-                ["400 g", "Passierte Tomaten"], ["200 ml", "Sahne"],
-                ["1 EL", "Olivenöl"], ["1 TL", "Salz"], ["1 Prise", "Pfeffer"],
-                ["1 Bund", "Basilikum"],
-            ],
+            "ingredients": [["500 g", "Nudeln"], ["2", "Zwiebeln"], ["3", "Knoblauchzehen"],
+                ["400 g", "Passierte Tomaten"], ["200 ml", "Sahne"], ["1 EL", "Olivenöl"],
+                ["1 TL", "Salz"], ["1 Prise", "Pfeffer"], ["1 Bund", "Basilikum"]],
             "instructions": "1. Nudeln kochen.\n2. Zwiebeln+Knoblauch anbraten.\n3. Tomaten+Sahne dazu, 10 Min köcheln.\n4. Würzen, Basilikum drüber.\n\nFertig! 🍝",
             "tip": "Frischer Parmesan macht den Unterschied!",
+            "prepTime": "10 Min.", "cookTime": "20 Min.", "servings": 4, "difficulty": "einfach",
             "calories": 520, "protein": 18, "fat": 22, "carbs": 65,
             "keywords": ["schnelles Rezept", "Nudeln", "Feierabend"],
             "tags": ["schnell", "nudeln", "hauptgericht"],
         }
 
-    post = build_post(recipe, topic_cat)
+    post = build_post(recipe, category)
     filepath = CONTENT_DIR / f"{recipe['slug']}.md"
 
     if dry_run:
